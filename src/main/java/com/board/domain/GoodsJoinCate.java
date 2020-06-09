@@ -15,7 +15,7 @@ public class GoodsJoinCate {
 	private String cateCodeRef;
 	private String cateName;
 	
-	
+	private String gdsThumbImg;
 	
 	public String getCateCodeRef() {
 		return cateCodeRef;
@@ -77,4 +77,11 @@ public class GoodsJoinCate {
 	public void setGdsDate(Date gdsDate) {
 		this.gdsDate = gdsDate;
 	}
+	public String getGdsThumbImg() {
+		return gdsThumbImg;
+	}
+	public void setGdsThumbImg(String gdsThumbImg) {
+		this.gdsThumbImg = gdsThumbImg;
+	}
+	
 }

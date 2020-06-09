@@ -36,38 +36,51 @@
 
 	<insert id="register">
 		INSERT INTO
-		tbl_goods(gdsNum,gdsName,cateCode,gdsPrice,gdsStock,gdsDes)
+		tbl_goods(gdsNum,gdsName,cateCode,gdsPrice,gdsStock,gdsDes,gdsImg,gdsThumbImg)
 		VALUES(NEXTVAL(tbl_goods_seq),#{gdsName},#{cateCode},#{gdsPrice},#{gdsStock},#{gdsDes}
+		,#{gdsImg},#{gdsThumbImg}
 		);
 	</insert>
 
-	<!-- 상품 목록 -->
-	<select id="goodslist" resultType="com.board.domain.GoodsVO">
-		SELECT gdsNum ,gdsName,
-		cateCode,gdsPrice,gdsStock,gdsDes,gdsImg,gdsDate
-		FROM tbl_goods
-		ORDER BY
-		gdsNum DESC;
+	<!-- 상품 목록 <select id="goodslist" resultType="com.board.domain.GoodsVO"> 
+		SELECT gdsNum ,gdsName, cateCode,gdsPrice,gdsStock,gdsDes,gdsImg,gdsDate 
+		FROM tbl_goods ORDER BY gdsNum DESC; </select> -->
+	<select id="goodslist" resultType="com.board.domain.GoodsJoinCate">
+		select
+		g.gdsNum, g.gdsName, g.cateCode, c.cateCodeRef,c.cateName,gdsPrice,gdsStock,
+		gdsDes,gdsImg, gdsDate,
+		g.gdsImg,g.gdsThumbImg from tbl_goods g inner join goods_category c on g.cateCode =
+		c.cateCode
 	</select>
+
 	<!-- 특정 상품 조회 -->
-	<select id="goodsView" resultType="com.board.domain.GoodsJoinCate">
-		SELECT g.gdsNum,g.gdsName,g.cateCode,c.cateCodeRef,c.cateName,gdsPrice,gdsStock,gdsDes,gdsImg,gdsDate
-		FROM tbl_goods g
+	<select id="goodsView"
+		resultType="com.board.domain.GoodsJoinCate">
+		SELECT
+		g.gdsNum,g.gdsName,g.cateCode,c.cateCodeRef,c.cateName,
+		gdsPrice,gdsStock,gdsDes,gdsImg,gdsDate,g.gdsImg,g.gdsThumbImg
+		FROM
+		tbl_goods g
 		inner join goods_category c
 		on g.cateCode=c.cateCode
-		WHERE gdsNUM=#{gdsNum}
+		WHERE
+		gdsNUM=#{gdsNum}
 	</select>
 	<!-- 수정 -->
-	<update id="goodsModify" >
-	update tbl_goods set
-					gdsName=#{gdsName},
-					cateCode=#{cateCode},
-					gdsPrice=#{gdsPrice},
-					gdsStock=#{gdsStock},
-					gdsDes=#{gdsDes}
-				where gdsNum=#{gdsNum}
+	<update id="goodsModify">
+		update tbl_goods set
+		gdsName=#{gdsName},
+		cateCode=#{cateCode},
+		gdsPrice=#{gdsPrice},
+		gdsStock=#{gdsStock},
+		gdsDes=#{gdsDes},
+
+		gdsImg=#{gdsImg},
+		gdsThumbImg=#{gdsThumbImg}
+		where
+		gdsNum=#{gdsNum}
 	</update>
-	
+
 	<!-- 삭제 -->
 	<delete id="goodsDelete">
 		delete from tbl_goods where gdsNum=#{gdsNum}

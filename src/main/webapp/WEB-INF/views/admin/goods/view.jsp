@@ -125,10 +125,11 @@ footer#footer ul li {
 
 
 			<div id="container_box">
-				<h2>상품 등록</h2>
+				<h2>HELLO SHOP</h2>
 				<form role="form" method="post" autocomplete="off">
-					<!--  -->  <input type="hidden" name="gdsNum" value="${goods.gdsNum}"/> 
-					
+					<!--  -->
+					<input type="hidden" name="gdsNum" value="${goods.gdsNum}" />
+
 					<div class="inputArea">
 						<label>1차 분류</label> <span class="category1"></span> <label>2차
 							분류</label> <span class="category2">${goods.cateCode}</span>
@@ -148,22 +149,34 @@ footer#footer ul li {
 					</div>
 
 					<div class="inputArea">
-						<label for="gdsDes">상품소개</label> <span>${goods.gdsDes}</span>
+						<label for="gdsDes">상품소개</label> 
+						<div class="gdsDes">${goods.gdsDes}</div>
+					<!--	<span>${goods.gdsDes}</span>  -->
 					</div>
+					<div class="inputArea">
+						<label for="gdsImg">이미지</label>
+						<p>원본 이미지</p>
+						<img src="${goods.gdsImg}" class="gdsImg1" />
 
+						<p>썸네일</p>
+						<img src="${goods.gdsThumbImg}" class="gdsImg2" />
+					</div>
 					<div class="inputArea">
 						<button type="button" id="modify_Btn" class="btn btn-warning">수정</button>
 						<button type="button" id="delete_Btn" class="btn btn-danger">삭제</button>
 						<script>
-						$("#delete_Btn").click(function(){
-							 
-							 var con = confirm("정말로 삭제하시겠습니까?");
-							 
-							 if(con) {      
-							  formObj.attr("action", "/admin/goods/delete");
-							  formObj.submit();
-							 }
-							});</script>
+							$("#delete_Btn").click(
+									function() {
+
+										var con = confirm("정말로 삭제하시겠습니까?");
+
+										if (con) {
+											formObj.attr("action",
+													"/admin/goods/delete");
+											formObj.submit();
+										}
+									});
+						</script>
 					</div>
 
 				</form>
@@ -194,6 +207,9 @@ footer#footer ul li {
 	</div>
 
 	<style>
+.gdsDes img { max-width:600px; height:auto; }
+.gdsImg1{width:400px ; height: 180px;}
+.gdsImg2{}
 .inputArea {
 	margin: 10px 0;
 }

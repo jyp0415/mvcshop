@@ -12,7 +12,7 @@ public interface AdminDAO {
 	
 	public void register(GoodsVO vo) throws Exception;
 	
-	public List<GoodsVO> goodslist() throws Exception;
+	public List<GoodsJoinCate> goodslist() throws Exception;
 	
 	public GoodsJoinCate goodsView(int gdsNum) throws Exception;
 	

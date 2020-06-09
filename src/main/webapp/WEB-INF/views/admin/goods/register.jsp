@@ -17,6 +17,8 @@
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+	
+<script src="/resources/ckeditor/ckeditor.js"></script>	
 <style>
 body {
 	font-family: '맑은 고딕', verdana;
@@ -126,7 +128,7 @@ footer#footer ul li {
 
 			<div id="container_box">
 				<h2>상품 등록</h2>
-				<form role="form" method="post" autocomplete="off">
+				<form role="form" method="post" autocomplete="off" enctype="multipart/form-data">
 
 					<div class="inputArea">
 						<label>1차 분류</label> <select class="category1">
@@ -154,8 +156,39 @@ footer#footer ul li {
 					<div class="inputArea">
 						<label for="gdsDes">상품소개</label>
 						<textarea rows="5" cols="50" id="gdsDes" name="gdsDes"></textarea>
+						<script>
+						 var ckeditor_config = {
+						   resize_enaleb : false,
+						   enterMode : CKEDITOR.ENTER_BR,
+						   shiftEnterMode : CKEDITOR.ENTER_P,
+						   filebrowserUploadUrl : "/admin/goods/ckUpload" //업로드시 전송할 url 
+						 };
+						 
+						 CKEDITOR.replace("gdsDes", ckeditor_config);
+						</script>
 					</div>
+					<div class="inputArea">
+						<label for="gdsImg">이미지</label> <input type="file" id="gdsImg"
+							name="file" />
+						<div class="select_img">
+							<img src="" />
+						</div>
 
+			<script>
+ 			   $("#gdsImg").change(function(){
+   			    if(this.files && this.files[0]) {
+    				var reader = new FileReader;
+   				    reader.onload = function(data) {
+    				$(".select_img img").attr("src", data.target.result).width(500);        
+   					}
+  				reader.readAsDataURL(this.files[0]);
+   				}
+  							});
+
+							
+			</script>
+			<%=request.getRealPath("/") %>
+					</div>
 					<div class="inputArea">
 						<button type="submit" id="register_Btn" class="btn btn-primary">등록</button>
 					</div>
@@ -256,6 +289,7 @@ footer#footer ul li {
 						});
 	</script>
 	<style>
+.select_img img {margin:20px 0;}
 .inputArea {
 	margin: 10px 0;
 }
@@ -283,5 +317,16 @@ textarea#gdsDes {
 	height: 180px;
 }
 </style>
+<script>
+var regExp = /[^0-9]/gi;
+
+$("#gdsPrice").keyup(function(){ numCheck($(this)); });
+$("#gdsStock").keyup(function(){ numCheck($(this)); });
+
+function numCheck(selector) {
+ var tempVal = selector.val();
+ selector.val(tempVal.replace(regExp, ""));
+}
+</script>
 </body>
 </html>

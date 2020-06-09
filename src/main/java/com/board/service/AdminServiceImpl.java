@@ -28,7 +28,7 @@ public class AdminServiceImpl implements AdminService {
 	}
 	//상품 목록 조회
 	@Override
-	public List<GoodsVO> goodslist() throws Exception{
+	public List<GoodsJoinCate> goodslist() throws Exception{
 		return dao.goodslist();
 	}
 	
