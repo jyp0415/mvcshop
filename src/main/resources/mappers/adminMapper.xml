@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+
+<mapper namespace="com.board.mappers.adminMapper">
+
+	<!-- 카테고리 호출 -->
+	<select id="category" resultType="com.board.domain.CategoryVO">
+		WITH recursive cte AS
+		(
+		SELECT 1
+		AS LEVEL,
+		cateName,
+		cateCode,
+		cateCodeRef
+		FROM goods_category
+		WHERE
+		cateCodeRef IS null
+		UNION all
+		SELECT 1+LEVEL AS LEVEL,
+		p.cateName,
+		p.cateCode,
+		p.cateCodeRef
+		FROM goods_category p
+		INNER JOIN cte
+		ON
+		p.cateCodeRef=cte.cateCode
+		)
+		SELECT LEVEL,
+		cateName,cateCode,IFNULL(cateCodeRef,0)AS cateCodeRef
+		FROM cte;
+	</select>
+
+	<insert id="register">
+		INSERT INTO
+		tbl_goods(gdsNum,gdsName,cateCode,gdsPrice,gdsStock,gdsDes)
+		VALUES(NEXTVAL(tbl_goods_seq),#{gdsName},#{cateCode},#{gdsPrice},#{gdsStock},#{gdsDes}
+		);
+	</insert>
+
+	<!-- 상품 목록 -->
+	<select id="goodslist" resultType="com.board.domain.GoodsVO">
+		SELECT gdsNum ,gdsName,
+		cateCode,gdsPrice,gdsStock,gdsDes,gdsImg,gdsDate
+		FROM tbl_goods
+		ORDER BY
+		gdsNum DESC;
+	</select>
+	<!-- 특정 상품 조회 -->
+	<select id="goodsView" resultType="com.board.domain.GoodsJoinCate">
+		SELECT g.gdsNum,g.gdsName,g.cateCode,c.cateCodeRef,c.cateName,gdsPrice,gdsStock,gdsDes,gdsImg,gdsDate
+		FROM tbl_goods g
+		inner join goods_category c
+		on g.cateCode=c.cateCode
+		WHERE gdsNUM=#{gdsNum}
+	</select>
+	<!-- 수정 -->
+	<update id="goodsModify" >
+	update tbl_goods set
+					gdsName=#{gdsName},
+					cateCode=#{cateCode},
+					gdsPrice=#{gdsPrice},
+					gdsStock=#{gdsStock},
+					gdsDes=#{gdsDes}
+				where gdsNum=#{gdsNum}
+	</update>
+	
+	<!-- 삭제 -->
+	<delete id="goodsDelete">
+		delete from tbl_goods where gdsNum=#{gdsNum}
+	</delete>
+
+</mapper>
