@@ -9,6 +9,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.board.domain.GoodsJoinCate;
+import com.board.domain.ReplyListVO;
+import com.board.domain.ReplyVO;
 @Repository
 public class ShopDAOImpl implements ShopDAO {
 
@@ -31,6 +33,27 @@ public class ShopDAOImpl implements ShopDAO {
 		return sql.selectList(namespace+".list_1",map);
 		
 		
+	}
+	@Override
+	public GoodsJoinCate goodsView(int gdsNum) throws Exception{
+		return sql.selectOne(namespace+".goodsView",gdsNum);
+	}
+	//댓글 등록
+	@Override
+	public void registerReply(ReplyVO reply)throws Exception{
+		sql.insert(namespace+".registerReply",reply);
+		
+	}
+	
+	//댓글 목록
+	public List<ReplyListVO> replyList(int gdsNum) throws Exception{
+		return sql.selectList(namespace+".replyList",gdsNum);
+	}
+	public void deleteReply(ReplyVO reply) throws Exception{
+		sql.delete(namespace+".deleteReply",reply);
+	}
+	public String idCheck(int repNum) throws Exception{
+		return sql.selectOne(namespace+".checkIdReply",repNum);
 	}
 	
 }

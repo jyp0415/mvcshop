@@ -21,6 +21,38 @@ on g.cateCode = c.cateCode
 where g.cateCode =#{cateCode}
 </select>
 
+<select id="goodsView"
+		resultType="com.board.domain.GoodsJoinCate">
+		SELECT
+		g.gdsNum,g.gdsName,g.cateCode,c.cateCodeRef,c.cateName,
+		gdsPrice,gdsStock,gdsDes,gdsImg,gdsDate,g.gdsImg,g.gdsThumbImg
+		FROM
+		tbl_goods g
+		inner join goods_category c
+		on g.cateCode=c.cateCode
+		WHERE
+		gdsNUM=#{gdsNum}
+	</select>
+<insert id="registerReply">
+INSERT INTO board_reply(gdsNum,userId,repNum,repCon)
+VALUES(#{gdsNum},#{userId},next value for board_reply_seq,#{repCon});
+</insert>
 
+<select id="replyList" resultType="com.board.domain.ReplyListVO">
+select r.gdsNum, r.userId, r.repNum, r.repCon, r.repDate,m.userName
+from board_reply r
+inner join tbl_member m
+ on r.userId = m.userId
+ where gdsNum = #{gdsNum}
+</select>
 
+<delete id="deleteReply">
+delete board_reply
+where repNum=#{repNum} and userId=#{userId}
+</delete>
+<select id="checkIdReply" resultType="String">
+select userId
+form board_reply
+where repNum = #{repNum}
+</select>
 </mapper>

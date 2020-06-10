@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import com.board.dao.ShopDAO;
 import com.board.domain.GoodsJoinCate;
+import com.board.domain.ReplyListVO;
+import com.board.domain.ReplyVO;
 
 @Service
 public class ShopServiceImpl implements ShopService {
@@ -33,5 +35,25 @@ public class ShopServiceImpl implements ShopService {
 	 }
 	 
 	}
+	@Override
+	public GoodsJoinCate goodsView(int gdsNum) throws Exception{
+		return dao.goodsView(gdsNum);
+	}
+	
+	@Override
+	public void registerReply(ReplyVO reply)throws Exception{
+		dao.registerReply(reply);
+	}
 
+	@Override
+	public List<ReplyListVO> replyList(int gdsNum) throws Exception{
+		return dao.replyList(gdsNum);
+	}
+	
+	public void deleteReply(ReplyVO reply) throws Exception{
+		dao.deleteReply(reply);
+	}
+	public String idCheck(int repNum) throws Exception{
+		return dao.idCheck(repNum);
+	}
 }
