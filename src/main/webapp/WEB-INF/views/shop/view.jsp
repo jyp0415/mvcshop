@@ -87,16 +87,21 @@ section.replyList div.replyContent {
 							   var repDate = new Date(this.repDate);
 							   repDate = repDate.toLocaleDateString("ko-US")
 							   
-							   str += "<li data-gdsNum='" + this.gdsNum + "'>"
+							   str += "<li data-gdsNum='" + this.repNum + "'>"
 							     + "<div class='userInfo'>"
 							     + "<span class='userName'>" + this.userName + "</span>"
 							     + "<span class='date'>" + repDate + "</span>"
 							     + "</div>"
 							     + "<div class='replyContent'>" + this.repCon + "</div>"
+							     
+							     + "<c:if test='${member != null}'>"
+							     
 							     + "<div class='replyFooter'>"
-							     + "<button type='button' class='modify' data-repNum='" + this.repNum + "'>수정</button>"
-							     + "<button type='button' class='delete' data-repNum='" + this.repNum + "'>삭제</button>"
+							     + "<button type='button' class='modify' data-repNum='" + this.repNum + "'>M</button>"
+							     + "<button type='button' class='delete' data-repNum='" + this.repNum + "'>D</button>"
 							     + "</div>"
+							    
+							     + "</c:if>"
 							     
 							     + "</li>";           
 							  });
@@ -164,9 +169,9 @@ section.replyList div.replyContent {
 								   var num = $(".numBox").val();
 								   var plusNum = Number(num) + 1;
 								   
-								   if(plusNum >= ${view.gdsStock}) {
+								   if(plusNum >= ${view.gdsStock}) { 
 								    $(".numBox").val(num);
-								   } else{
+								   }else{ 
 								    $(".numBox").val(plusNum);          
 								   }
 								  } ); 
@@ -242,34 +247,50 @@ section.replyList div.replyContent {
 
 						<section class="replyList">
 							<ol>
-								<!-- 	<c:forEach items="${reply}" var="reply">
 
-									<li>   
-										<div class="userInfo">
-											    <span class="userName">${reply.userName}</span>     <span
-												class="date"><fmt:formatDate value="${reply.repDate}"
-													pattern="yyyy-MM-dd" /></span>    
-										</div>    
-										<div class="replyContent">${reply.repCon}</div>  
-									</li>
-   								</c:forEach>-->
 							</ol>
 							<script>replyList();</script>
 							 
-							<script>
+							<script> // 댓글의 수정 버튼 클릭 시 
+							$(document).on("click", ".modify", function(){
+								 $(".replyModal").fadeIn(200);
+								 
+								 var repNum = $(this).attr("data-repNum");
+								 var repCon = $(this).parent().parent().children(".replyContent").text();
+								 
+								 $(".modal_repCon").val(repCon);
+								 $(".modal_modify_btn").attr("data-repNum", repNum);
+								 
+								}); //댓글의 수정버튼 클릭 끝
+								
+						
+							
+							//댓글 삭제
 							 $(document).on("click", ".delete", function(){
-							  
+							  var deleteConfirm = confirm("삭제 하십니까");
+							 if(deleteConfirm){
 							  var data = {repNum : $(this).attr("data-repNum")};
 							   
 							  $.ajax({
 							   url : "/shop/view/deleteReply",
 							   type : "post",
 							   data : data,
-							   success : function(){
-							     replyList();
-							   }
+							   success : function(result){
+								   
+								   if(result == 1) {
+								    replyList();
+								   } else {
+								    alert("작성자 본인만 할 수 있습니다.");     
+								   }
+								  },
+								  error : function(){
+										 alert("로그인이 필요합니다.");
+									 }
 							  });
-							 });
+							  
+							 } // delete Confirm 
+							
+							 }                 );
 							</script>
 							 
 						</section>
@@ -298,7 +319,116 @@ section.replyList div.replyContent {
 	
 	<a href="/board/write">게시물 작성</a>
 	</p>-->
+	<div class="replyModal">
+
+		<div class="modalContent">
+
+			<div>
+				<textarea class="modal_repCon" name="modal_repCon"></textarea>
+			</div>
+
+			<div>
+				<button type="button" class="modal_modify_btn">수정</button>
+				<button type="button" class="modal_cancel">취소</button>
+			</div>
+
+		</div>
+
+		<div class="modalBackground"></div>
+
+	</div>
+	<script>
+	//수정 모달의 수정 버튼 클릭시 	
+	//모달은 원래 숨겨져 있는 정적인 html 이다 그래서 click 메소드 사용 가능 
+	$(".modal_modify_btn").click(function(){
+		 var modifyConfirm = confirm("정말로 수정하시겠습니까?");
+		 
+		 if(modifyConfirm) {
+		  var data = {
+		     repNum : $(this).attr("data-repNum"),
+		     repCon : $(".modal_repCon").val()
+		    };  // ReplyVO 형태로 데이터 생성
+		  
+		  $.ajax({
+		   url : "/shop/view/modifyReply",
+		   type : "post",
+		   data : data,
+		   success : function(result){
+		    
+		    if(result == 1) {
+		     replyList();
+		     $(".replyModal").fadeOut(200);
+		    } else {
+		     alert("작성자 본인만 할 수 있습니다.");       
+		    }
+		   },
+		   error : function(){
+		    alert("로그인하셔야합니다.")
+		   }
+		  });
+		 }
+		 
+		});
+	
+	
+	
+	
+	
+	
+	
+	//모달의 취소버튼 클릭시 
+$(".modal_cancel").click(function(){
+	 $(".replyModal").fadeOut(200);
+	});</script>
 </body>
+<style>
+div.replyModal {
+	position: relative;
+	z-index: 1;
+	display: none;
+}
+
+div.modalBackground {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.8);
+	z-index: -1;
+}
+
+div.modalContent {
+	position: fixed;
+	top: 20%;
+	left: calc(50% - 250px);
+	width: 500px;
+	height: 250px;
+	padding: 20px 10px;
+	background: #fff;
+	border: 2px solid #666;
+}
+
+div.modalContent textarea {
+	font-size: 16px;
+	font-family: '맑은 고딕', verdana;
+	padding: 10px;
+	width: 500px;
+	height: 200px;
+}
+
+div.modalContent button {
+	font-size: 20px;
+	padding: 5px 10px;
+	margin: 10px 0;
+	background: #fff;
+	border: 1px solid #ccc;
+}
+
+div.modalContent button.modal_cancel {
+	margin-left: 20px;
+}
+</style>
 <style>
 div.goods div.goodsInfo p.cartStock button {
 	font-size: 26px;

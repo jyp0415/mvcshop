@@ -19,4 +19,6 @@ public interface ShopService {
 	
 	public void deleteReply(ReplyVO reply) throws Exception;
 	public String idCheck(int repNum) throws Exception;
+	
+	public void modifyReply(ReplyVO reply)throws Exception;
 }

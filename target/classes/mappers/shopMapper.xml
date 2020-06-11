@@ -47,12 +47,25 @@ inner join tbl_member m
 </select>
 
 <delete id="deleteReply">
-delete board_reply
+delete from board_reply
 where repNum=#{repNum} and userId=#{userId}
 </delete>
 <select id="checkIdReply" resultType="String">
 select userId
-form board_reply
+from board_reply
 where repNum = #{repNum}
 </select>
+
+<update id="modifyReply">
+update board_reply
+set repCon=#{repCon}
+where repNum=#{repNum}
+and userId = #{userId}
+
+</update>
+
+
+
+
+
 </mapper>

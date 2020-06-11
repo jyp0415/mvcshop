@@ -56,4 +56,9 @@ public class ShopDAOImpl implements ShopDAO {
 		return sql.selectOne(namespace+".checkIdReply",repNum);
 	}
 	
+	//댓글 수정
+	public void modifyReply(ReplyVO reply)throws Exception{
+		sql.update(namespace+".modifyReply",reply);
+	}
+	
 }
