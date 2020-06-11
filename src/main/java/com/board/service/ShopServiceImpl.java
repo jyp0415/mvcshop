@@ -84,4 +84,12 @@ public class ShopServiceImpl implements ShopService {
 	public void addOrder_detail(OrderDetailVO orderDetail) throws Exception{
 		dao.addOrder_detail(orderDetail);
 	}
+	
+	public void deleteAllCart(String userId) throws Exception{
+		dao.deleteAllCart(userId);
+	}
+	
+	public List<OrderVO> orderList(OrderVO order)throws Exception{
+		return dao.orderList(order);
+	}
 }

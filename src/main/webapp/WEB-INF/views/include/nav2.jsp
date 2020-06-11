@@ -15,6 +15,7 @@
 
 		<li>${member.userName}님환영합니다.</li>
 		<li><a href="/shop/cartList">카트리스트</a></li>
+		<li><a href="/shop/orderList">주문 리스트</a></li>
 		<li><a href="/member/signout">로그아웃</a></li>
 	</c:if>
 </ul>

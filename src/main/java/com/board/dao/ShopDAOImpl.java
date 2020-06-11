@@ -89,4 +89,14 @@ public class ShopDAOImpl implements ShopDAO {
 	public void addOrder_detail(OrderDetailVO orderDetail) throws Exception{
 		sql.insert(namespace+".orderDetail",orderDetail);
 	}
+	
+	//카트 삭제
+	public void deleteAllCart(String userId) throws Exception{
+		System.out.println("dao"+userId);
+		sql.delete(namespace+".deleteAllCart",userId);
+	}
+	
+	public List<OrderVO> orderList(OrderVO order)throws Exception{
+		return sql.selectList(namespace+".orderList",order);
+	}
 }

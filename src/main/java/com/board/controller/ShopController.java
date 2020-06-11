@@ -186,31 +186,45 @@ public class ShopController {
 	@RequestMapping(value = "/cartList", method = RequestMethod.POST)
 	public String order(HttpSession session, OrderVO order, OrderDetailVO orderDetail) throws Exception {
 
-	 
-	 MemberVO member = (MemberVO)session.getAttribute("member");  
-	 String userId = member.getUserId();
-	 
-	 Calendar cal = Calendar.getInstance();
-	 int year = cal.get(Calendar.YEAR);
-	 String ym = year + new DecimalFormat("00").format(cal.get(Calendar.MONTH) + 1);
-	 String ymd = ym + new DecimalFormat("00").format(cal.get(Calendar.DATE));
-	 String subNum = "";
-	 
-	 for(int i = 1; i <= 6; i ++) {
-	  subNum += (int)(Math.random() * 10);
-	 }
-	 
-	 String orderId = ymd + "_" + subNum;
-	 
-	 order.setOrderId(orderId);
-	 order.setUserId(userId);
-	 service.addOrder(order);
-	 orderDetail.setOrderId(orderId);   
-	 service.addOrder_detail(orderDetail);
-	 
-	 //service.cartAllDelete(userId);
-	 return "redirect:/";
-	 //return "redirect:/shop/orderList";  
+		MemberVO member = (MemberVO) session.getAttribute("member");
+		String userId = member.getUserId();
+
+		Calendar cal = Calendar.getInstance();
+		int year = cal.get(Calendar.YEAR);
+		String ym = year + new DecimalFormat("00").format(cal.get(Calendar.MONTH) + 1);
+		String ymd = ym + new DecimalFormat("00").format(cal.get(Calendar.DATE));
+		String subNum = "";
+
+		for (int i = 1; i <= 6; i++) {
+			subNum += (int) (Math.random() * 10);
+		}
+
+		String orderId = ymd + "_" + subNum;
+
+		order.setOrderId(orderId);
+		order.setUserId(userId);
+		service.addOrder(order);
+		orderDetail.setOrderId(orderId);
+		service.addOrder_detail(orderDetail);
+
+		
+		System.out.println("userId"+userId);
+		service.deleteAllCart(userId);
+		
+		 return "redirect:/shop/orderList";
 	}
 
+	// 주문 목록
+	@RequestMapping(value = "/orderList", method = RequestMethod.GET)
+	public void getOrderList(HttpSession session, OrderVO order, Model model) throws Exception {
+
+		MemberVO member = (MemberVO) session.getAttribute("member");
+		String userId = member.getUserId();
+
+		order.setUserId(userId);
+		
+		List<OrderVO> orderList = service.orderList(order);
+		
+		model.addAttribute("orderList", orderList);
+	}
 }

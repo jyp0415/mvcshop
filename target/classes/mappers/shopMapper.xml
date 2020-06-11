@@ -50,6 +50,7 @@ inner join tbl_member m
 delete from board_reply
 where repNum=#{repNum} and userId=#{userId}
 </delete>
+
 <select id="checkIdReply" resultType="String">
 select userId
 from board_reply
@@ -99,22 +100,17 @@ from tbl_cart
 
 </insert>
 
+<delete id="deleteAllCart">
+delete from tbl_cart
+where userId=#{userId}
+</delete>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<select id="orderList" resultType="com.board.domain.OrderVO">
+select orderId,userId,orderRec,userAddr1,userAddr2,userAddr3,
+orderPhon,amount
+from tbl_order
+where userId=#{userId}
+</select>
 
 
 
