@@ -169,7 +169,7 @@ section.replyList div.replyContent {
 								   var num = $(".numBox").val();
 								   var plusNum = Number(num) + 1;
 								   
-								   if(plusNum >= ${view.gdsStock}) { 
+								   if(plusNum >= ${view.gdsStock}){ 
 								    $(".numBox").val(num);
 								   }else{ 
 								    $(".numBox").val(plusNum);          
@@ -191,8 +191,38 @@ section.replyList div.replyContent {
 							</p>
 
 							<p class="addToCart">
-								<button type="button">카트에 담기</button>
+								<button type="button" class="addCart_btn">카트에 담기</button>
+								<script>
+							  $(".addCart_btn").click(function(){
+							   var gdsNum = $("#gdsNum").val();
+							   var cartStock = $(".numBox").val();
+							      
+							   var data = {
+							     gdsNum : gdsNum,
+							     cartStock : cartStock
+							     };
+							   
+							   $.ajax({
+							    url : "/shop/view/addCart",
+							    type : "post",
+							    data : data,
+							    success : function(result){
+							    if(result ==1){
+							     alert("카트 담기 성공");
+							     $(".numBox").val("1");
+							    }else {
+							    	alert("회원만 사용 가능합니다.")
+							    	$(".numBox").val("1");
+							    }
+							    },
+							    error : function(){
+							     alert("카트 담기 실패");
+							    }
+							   });
+							  });
+							 </script>
 							</p>
+
 						</div>
 
 						<div class="gdsDes">${view.gdsDes}</div>

@@ -1,5 +1,7 @@
 package com.board.controller;
 
+import java.text.DecimalFormat;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -12,8 +14,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.board.domain.CartListVO;
+import com.board.domain.CartVO;
 import com.board.domain.GoodsJoinCate;
 import com.board.domain.MemberVO;
+import com.board.domain.OrderDetailVO;
+import com.board.domain.OrderVO;
 import com.board.domain.ReplyListVO;
 import com.board.domain.ReplyVO;
 import com.board.service.ShopService;
@@ -120,4 +126,91 @@ public class ShopController {
 
 		return result;
 	}
+
+	// 카트 담기 ajax
+	@ResponseBody
+	@RequestMapping(value = "/view/addCart", method = RequestMethod.POST)
+	public int addCart(CartVO cart, HttpSession session) throws Exception {
+
+		int result = 0;
+
+		MemberVO member = (MemberVO) session.getAttribute("member");
+
+		if (member != null) {
+			cart.setUserId(member.getUserId());
+			service.addCart(cart);
+			result = 1;
+		}
+
+		return result;
+	}
+
+	// 카트 목록
+	@RequestMapping(value = "/cartList", method = RequestMethod.GET)
+	public void getCartList(HttpSession session, Model model) throws Exception {
+
+		MemberVO member = (MemberVO) session.getAttribute("member");
+		String userId = member.getUserId();
+
+		List<CartListVO> cartList = service.cartList(userId);
+
+		model.addAttribute("cartList", cartList);
+
+	}
+
+	// 카트 선택 삭제
+	@ResponseBody
+	@RequestMapping(value = "/deleteCart", method = RequestMethod.POST)
+	public int deleteCart(HttpSession session, @RequestParam(value = "chbox[]") List<String> chArr, CartVO cart)
+			throws Exception {
+
+		MemberVO member = (MemberVO) session.getAttribute("member");
+		String userId = member.getUserId();
+		int result = 0;
+		int cartNum = 0;
+
+		if (member != null) {
+			cart.setUserId(userId);
+
+			for (String i : chArr) {
+				cartNum = Integer.parseInt(i);
+				cart.setCartNum(cartNum);
+				service.deleteCart(cart);
+			}
+			result = 1;
+		}
+		return result;
+	}
+
+	// 주문
+	@RequestMapping(value = "/cartList", method = RequestMethod.POST)
+	public String order(HttpSession session, OrderVO order, OrderDetailVO orderDetail) throws Exception {
+
+	 
+	 MemberVO member = (MemberVO)session.getAttribute("member");  
+	 String userId = member.getUserId();
+	 
+	 Calendar cal = Calendar.getInstance();
+	 int year = cal.get(Calendar.YEAR);
+	 String ym = year + new DecimalFormat("00").format(cal.get(Calendar.MONTH) + 1);
+	 String ymd = ym + new DecimalFormat("00").format(cal.get(Calendar.DATE));
+	 String subNum = "";
+	 
+	 for(int i = 1; i <= 6; i ++) {
+	  subNum += (int)(Math.random() * 10);
+	 }
+	 
+	 String orderId = ymd + "_" + subNum;
+	 
+	 order.setOrderId(orderId);
+	 order.setUserId(userId);
+	 service.addOrder(order);
+	 orderDetail.setOrderId(orderId);   
+	 service.addOrder_detail(orderDetail);
+	 
+	 //service.cartAllDelete(userId);
+	 return "redirect:/";
+	 //return "redirect:/shop/orderList";  
+	}
+
 }

@@ -7,7 +7,11 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import com.board.dao.ShopDAO;
+import com.board.domain.CartListVO;
+import com.board.domain.CartVO;
 import com.board.domain.GoodsJoinCate;
+import com.board.domain.OrderDetailVO;
+import com.board.domain.OrderVO;
 import com.board.domain.ReplyListVO;
 import com.board.domain.ReplyVO;
 
@@ -60,5 +64,24 @@ public class ShopServiceImpl implements ShopService {
 	//댓글 수정
 	public void modifyReply(ReplyVO reply)throws Exception{
 		dao.modifyReply(reply);
+	}
+	
+	public void addCart(CartVO cart) throws Exception{
+		dao.addCart(cart);
+	}
+	public List<CartListVO> cartList(String userId) throws Exception{
+		return dao.cartList(userId);
+	}
+	public void deleteCart(CartVO cart) throws Exception{
+		dao.deleteCart(cart);
+	}
+	
+	//주문정보 전송 및 상세 정보 전송 
+	public void addOrder(OrderVO order) throws Exception{
+		 dao.addOrder(order);
+	}
+	
+	public void addOrder_detail(OrderDetailVO orderDetail) throws Exception{
+		dao.addOrder_detail(orderDetail);
 	}
 }

@@ -2,7 +2,11 @@ package com.board.dao;
 
 import java.util.List;
 
+import com.board.domain.CartListVO;
+import com.board.domain.CartVO;
 import com.board.domain.GoodsJoinCate;
+import com.board.domain.OrderDetailVO;
+import com.board.domain.OrderVO;
 import com.board.domain.ReplyListVO;
 import com.board.domain.ReplyVO;
 
@@ -23,5 +27,13 @@ public interface ShopDAO {
 	
 	public void modifyReply(ReplyVO reply)throws Exception;
 	
+	public void addCart(CartVO cart) throws Exception;
 	
+	public List<CartListVO> cartList(String userId) throws Exception;
+	
+	public void deleteCart(CartVO cart) throws Exception;
+	
+	public void addOrder(OrderVO order) throws Exception;
+	
+	public void addOrder_detail(OrderDetailVO orderDetail) throws Exception;
 }

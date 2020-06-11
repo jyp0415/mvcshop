@@ -64,6 +64,56 @@ and userId = #{userId}
 
 </update>
 
+<insert id="addCart">
+INSERT INTO tbl_cart(cartNum,userId,gdsNum,cartStock)
+VALUES( NEXT VALUE FOR tbl_cart_seq  ,#{userId},#{gdsNum},#{cartStock});
+</insert>
+
+<select id="cartList" resultType="com.board.domain.CartListVO">
+SELECT
+row_number() over(ORDER BY c.cartNum DESC) AS num,
+c.cartNum,c.userId,c.gdsNum,c.cartStock,c.addDate,
+g.gdsName,g.gdsPrice,g.gdsthumbimg
+FROM tbl_cart c
+INNER JOIN tbl_goods g
+ ON c.gdsNum = g.gdsNum
+ WHERE c.userId = #{userId};
+</select>
+
+<delete id="deleteCart">
+DELETE FROM tbl_cart
+WHERE cartNum = #{cartNum}
+AND userId=#{userId};
+</delete>
+
+<!-- 주문 정보  -->
+<insert id="orderInfo">
+insert into tbl_order(orderId,userId,orderRec,userAddr1,userAddr2,userAddr3,orderPhon,amount)
+values(#{orderId},#{userId},#{orderRec},#{userAddr1},#{userAddr2},#{userAddr3},#{orderPhon},#{amount})
+</insert>
+
+<insert id="orderDetail">
+insert into order_detail(orderDetailNum,orderId,gdsNum,cartStock)
+select NEXT VALUE FOR order_detail_seq,#{orderId},gdsNum,cartStock
+from tbl_cart
+
+</insert>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
