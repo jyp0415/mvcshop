@@ -122,6 +122,19 @@
    from order_detail
     WHERE orderId=#{orderId}
 	</select>
+	<!-- 댓글 불러오기  -->
+	<select id="allReply" resultType="com.board.domain.ReplyListVO">
+		select
+		r.gdsNum,r.userId,r.repNum,r.repDate,m.userName
+		from board_reply r
+		inner join tbl_member m
+		on r.userId = m.userId
+	</select>
+	<!-- 댓글 지우기  -->
+	<delete id="deleteReply">
+	delete from board_reply
+	where repNum = #{repNum}
+	</delete>
 	
 
 </mapper>

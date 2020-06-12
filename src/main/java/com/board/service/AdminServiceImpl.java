@@ -12,6 +12,7 @@ import com.board.domain.GoodsJoinCate;
 import com.board.domain.GoodsVO;
 import com.board.domain.OrderListVO;
 import com.board.domain.OrderVO;
+import com.board.domain.ReplyListVO;
 @Service
 public class AdminServiceImpl implements AdminService {
 
@@ -63,5 +64,13 @@ public class AdminServiceImpl implements AdminService {
 	
 	public void changeStock(GoodsVO vo) throws Exception{
 		dao.changeStock(vo);
+	}
+	public List<ReplyListVO> allReply() throws Exception{
+		return dao.allReply();
+		
+	}
+
+	public void deleteReply(int repNum) throws Exception{
+		dao.deleteReply(repNum);
 	}
 }

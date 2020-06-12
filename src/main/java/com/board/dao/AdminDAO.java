@@ -7,6 +7,7 @@ import com.board.domain.GoodsJoinCate;
 import com.board.domain.GoodsVO;
 import com.board.domain.OrderListVO;
 import com.board.domain.OrderVO;
+import com.board.domain.ReplyListVO;
 
 public interface AdminDAO {
 
@@ -29,4 +30,9 @@ public interface AdminDAO {
 	public void deliveryChange(OrderVO order) throws Exception;
 	
 	public void changeStock(GoodsVO vo) throws Exception;
+	
+	public List<ReplyListVO> allReply() throws Exception;
+	
+	public void deleteReply(int repNum)throws Exception;
+	
 }

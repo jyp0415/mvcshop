@@ -36,9 +36,12 @@ public interface ShopService {
 	public void addOrder(OrderVO order) throws Exception;
 
 	public void addOrder_detail(OrderDetailVO orderDetail) throws Exception;
-	
+
 	public void deleteAllCart(String userId) throws Exception;
-	
-	public List<OrderVO> orderList(OrderVO order)throws Exception;
+
+	public List<OrderVO> orderList(OrderVO order) throws Exception;
+
 	public List<OrderListVO> orderView(OrderVO order) throws Exception;
+
+	
 }

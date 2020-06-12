@@ -27,6 +27,7 @@ import com.board.domain.GoodsJoinCate;
 import com.board.domain.GoodsVO;
 import com.board.domain.OrderListVO;
 import com.board.domain.OrderVO;
+import com.board.domain.ReplyListVO;
 import com.board.service.AdminService;
 import com.board.utils.UploadFileUtils;
 
@@ -272,5 +273,23 @@ public class AdminController {
 	 return "redirect:/admin/shop/orderView?n=" + order.getOrderId();
 	}
 
+	// 모든 소감(댓글)
+	@RequestMapping(value = "/shop/allReply", method = RequestMethod.GET)
+	public void getAllReply(Model model) throws Exception {
+	 logger.info("get all reply");
+	   
+	 List<ReplyListVO> reply = adminService.allReply();
+	 
+	 model.addAttribute("reply", reply);
+	}
+	
+	// 모든 소감(댓글)
+		@RequestMapping(value = "/shop/allReply", method = RequestMethod.POST)
+		public String deleteReply(@RequestParam("repNum")int repNum,Model model) throws Exception {
+		 
+		  	System.out.println("repNum : "+repNum);	 
+		 adminService.deleteReply(repNum);
+		 return "redirect:/admin/shop/allReply";
+		}
 	
 }

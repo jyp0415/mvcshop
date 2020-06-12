@@ -12,57 +12,72 @@ import com.board.domain.GoodsJoinCate;
 import com.board.domain.GoodsVO;
 import com.board.domain.OrderListVO;
 import com.board.domain.OrderVO;
+import com.board.domain.ReplyListVO;
+
 @Repository
 public class AdminDAOImpl implements AdminDAO {
 	@Inject
 	private SqlSession sql;
-	
+
 	private static String namespace = "com.board.mappers.adminMapper";
+
 	@Override
 	public List<CategoryVO> category() throws Exception {
 		// TODO Auto-generated method stub
-		return sql.selectList(namespace+".category");
+		return sql.selectList(namespace + ".category");
 	}
+
 	@Override
 	public void register(GoodsVO vo) throws Exception {
-		sql.insert(namespace + ".register",vo);
-		
+		sql.insert(namespace + ".register", vo);
+
 	}
-	//상품목록
+
+	// 상품목록
 	@Override
 	public List<GoodsJoinCate> goodslist() throws Exception {
-		return sql.selectList(namespace+".goodslist");
+		return sql.selectList(namespace + ".goodslist");
 	}
+
 	@Override
-	public GoodsJoinCate goodsView(int gdsNum) throws Exception{
-		return sql.selectOne(namespace+".goodsView",gdsNum);
+	public GoodsJoinCate goodsView(int gdsNum) throws Exception {
+		return sql.selectOne(namespace + ".goodsView", gdsNum);
 	}
+
 	@Override
-	public void goodsModify(GoodsVO vo) throws Exception{
-		System.out.println("dao 수정"+vo.getGdsDes());
-		
-		sql.update(namespace+".goodsModify",vo);
-		
+	public void goodsModify(GoodsVO vo) throws Exception {
+		System.out.println("dao 수정" + vo.getGdsDes());
+
+		sql.update(namespace + ".goodsModify", vo);
+
 	}
-	
+
 	@Override
-	public void goodsDelete(int gdsNum) throws Exception{
-		sql.delete(namespace+".goodsDelete",gdsNum);
+	public void goodsDelete(int gdsNum) throws Exception {
+		sql.delete(namespace + ".goodsDelete", gdsNum);
 	}
-	
-	
-	public List<OrderVO> orderList() throws Exception{
-		return sql.selectList(namespace+".orderList");
+
+	public List<OrderVO> orderList() throws Exception {
+		return sql.selectList(namespace + ".orderList");
 	}
-	
-	public List<OrderListVO> orderView(OrderVO order)throws Exception{
-		return sql.selectList(namespace+".orderView",order);
+
+	public List<OrderListVO> orderView(OrderVO order) throws Exception {
+		return sql.selectList(namespace + ".orderView", order);
 	}
-	
-	public void deliveryChange(OrderVO order) throws Exception{
-		sql.delete(namespace+".deliveryChange",order);
+
+	public void deliveryChange(OrderVO order) throws Exception {
+		sql.delete(namespace + ".deliveryChange", order);
 	}
-	public void changeStock(GoodsVO vo) throws Exception{
-		sql.update(namespace+".changeStock",vo);
+
+	public void changeStock(GoodsVO vo) throws Exception {
+		sql.update(namespace + ".changeStock", vo);
+	}
+
+	public List<ReplyListVO> allReply() throws Exception{
+		return sql.selectList(namespace+".allReply");
+	}
+
+	public void deleteReply(int repNum) throws Exception{
+		sql.delete(namespace+".deleteReply",repNum);
 	}
 }
