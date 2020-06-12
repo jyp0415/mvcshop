@@ -6,10 +6,16 @@
 <head>
 <title>Home</title>
 <style>
- section#content ul li { display:inline-block; margin:10px; }
- section#content div.goodsThumb img { width:200px; height:200px; }
- section#content div.goodsName { padding:10px 0; text-align:center; }
- section#content div.goodsName a { color:#000; }
+ .orderInfo { border:5px solid #eee; padding:10px 20px; margin:20px 0;}
+ .orderInfo span { font-size:20px; font-weight:bold; display:inline-block; width:90px; }
+ 
+ .orderView li { margin-bottom:20px; padding-bottom:20px; border-bottom:1px solid #999; }
+ .orderView li::after { content:""; display:block; clear:both; }
+ 
+ .thumb { float:left; width:200px; }
+ .thumb img { width:200px; height:200px; }
+ .gdsInfo { float:right; width:calc(100% - 220px); line-height:2; }
+ .gdsInfo span { font-size:20px; font-weight:bold; display:inline-block; width:100px; margin-right:10px; }
 </style>
 </head>
 <body>

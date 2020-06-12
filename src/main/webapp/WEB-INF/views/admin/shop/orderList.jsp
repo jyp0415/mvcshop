@@ -6,11 +6,61 @@
 <head>
 <title>Home</title>
 <style>
-section#content ul li { border:5px solid #eee; padding:10px 20px; margin-bottom:20px; }
-section#content .orderList span { font-size:20px; font-weight:bold; display:inline-block; width:90px; margin-right:10px; }
+.orderInfo {
+	border: 5px solid #eee;
+	padding: 10px 20px;
+	margin: 20px 0;
+}
+
+.orderInfo span {
+	font-size: 20px;
+	font-weight: bold;
+	display: inline-block;
+	width: 90px;
+}
+
+.orderView li {
+	margin-bottom: 20px;
+	padding-bottom: 20px;
+	border-bottom: 1px solid #999;
+}
+
+.orderView li::after {
+	content: "";
+	display: block;
+	clear: both;
+}
+
+.thumb {
+	float: left;
+	width: 200px;
+}
+
+.thumb img {
+	width: 200px;
+	height: 200px;
+}
+
+.gdsInfo {
+	float: right;
+	width: calc(100% - 220px);
+	line-height: 2;
+}
+
+.gdsInfo span {
+	font-size: 20px;
+	font-weight: bold;
+	display: inline-block;
+	width: 100px;
+	margin-right: 10px;
+}
+ div#container_box ul li { border:5px solid #eee; padding:10px 20px; margin-bottom:20px; }
+ div#container_box .orderList span { font-size:20px; font-weight:bold; display:inline-block; width:90px; margin-right:10px; }
 </style>
+
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	
 </head>
 <body>
 	<div id="root">
@@ -22,7 +72,7 @@ section#content .orderList span { font-size:20px; font-weight:bold; display:inli
 
 		<nav id="nav">
 			<div id="nav_box">
-				<%@ include file="../include/nav2.jsp"%>
+				<%@ include file="../include/nav.jsp"%>
 			</div>
 		</nav>
 
@@ -36,8 +86,10 @@ section#content .orderList span { font-size:20px; font-weight:bold; display:inli
 								<div>
 									<p>
 										<span>주문번호</span><a
-											href="/shop/orderView?n=${orderList.orderId}">${orderList.orderId}</a>
+											href="/admin/shop/orderView?n=${orderList.orderId}">${orderList.orderId}</a>
 									</p>
+									<p>
+										<span>주문자</span>${orderList.userId}</p>
 									<p>
 										<span>수령인</span>${orderList.orderRec}</p>
 									<p>
@@ -51,7 +103,6 @@ section#content .orderList span { font-size:20px; font-weight:bold; display:inli
 										원
 									</p>
 									<p> <span>상태</span> ${orderList.delivery}</p>
-									
 								</div>
 							</li>
 						</c:forEach>
@@ -107,18 +158,6 @@ div#root {
 	margin: 0 auto;
 }
 
-header#header {
-	
-}
-
-nav#nav {
-	
-}
-
-section#container {
-	
-}
-
 section#content {
 	float: right;
 	width: 700px;
@@ -167,10 +206,6 @@ nav#nav div#nav_box li {
 
 nav#nav div#nav_box li a {
 	color: #333;
-}
-
-section#container {
-	
 }
 
 aside#aside h3 {

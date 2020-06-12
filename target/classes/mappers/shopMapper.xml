@@ -107,9 +107,22 @@ where userId=#{userId}
 
 <select id="orderList" resultType="com.board.domain.OrderVO">
 select orderId,userId,orderRec,userAddr1,userAddr2,userAddr3,
-orderPhon,amount
+orderPhon,amount,orderDate,delivery
 from tbl_order
 where userId=#{userId}
+</select>
+
+<select id="orderView" resultType="com.board.domain.OrderListVO"> 
+SELECT o.orderId,o.userId,o.orderRec,o.userAddr1,o.userAddr2,o.userAddr3,
+o.orderPhon,o.amount,o.orderDate,o.delivery,d.orderDetailNum,d.gdsNum,d.cartStock,
+g.gdsName, g.gdsThumbImg,g.gdsPrice
+from tbl_order o
+   INNER JOIN order_detail d
+    ON o.orderId = d.orderId
+    INNER JOIN tbl_goods g
+    ON d.gdsNum = g.gdsNum 
+    WHERE o.userId =#{userId}
+    AND o.orderId=#{orderId}
 </select>
 
 

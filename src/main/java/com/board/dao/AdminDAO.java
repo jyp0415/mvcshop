@@ -5,6 +5,8 @@ import java.util.List;
 import com.board.domain.CategoryVO;
 import com.board.domain.GoodsJoinCate;
 import com.board.domain.GoodsVO;
+import com.board.domain.OrderListVO;
+import com.board.domain.OrderVO;
 
 public interface AdminDAO {
 
@@ -19,4 +21,12 @@ public interface AdminDAO {
 	public void goodsModify(GoodsVO vo) throws Exception;
 	
 	public void goodsDelete(int gdsNum) throws Exception;
+	
+	public List<OrderVO> orderList() throws Exception;
+	
+	public List<OrderListVO> orderView(OrderVO order)throws Exception;
+	
+	public void deliveryChange(OrderVO order) throws Exception;
+	
+	public void changeStock(GoodsVO vo) throws Exception;
 }

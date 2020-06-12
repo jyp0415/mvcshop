@@ -11,6 +11,7 @@ import com.board.domain.CartListVO;
 import com.board.domain.CartVO;
 import com.board.domain.GoodsJoinCate;
 import com.board.domain.OrderDetailVO;
+import com.board.domain.OrderListVO;
 import com.board.domain.OrderVO;
 import com.board.domain.ReplyListVO;
 import com.board.domain.ReplyVO;
@@ -91,5 +92,8 @@ public class ShopServiceImpl implements ShopService {
 	
 	public List<OrderVO> orderList(OrderVO order)throws Exception{
 		return dao.orderList(order);
+	}
+	public List<OrderListVO> orderView(OrderVO order) throws Exception{
+		return dao.orderView(order);
 	}
 }

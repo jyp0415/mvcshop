@@ -106,7 +106,7 @@ section.replyList div.replyContent {
 							     + "</li>";           
 							  });
 							  
-							  $("section.replyList ol").html(str); <!-- ol 태그에 추가-->
+							  $("section.replyList ol").html(str);  
 							 });
 							}
 							</script>
@@ -156,7 +156,7 @@ section.replyList div.replyContent {
 								<fmt:formatNumber pattern="###,###,###" value="${view.gdsStock}" />
 								EA
 							</p>
-
+							<c:if test="${view.gdsStock!=0 }">
 							<p class="cartStock">
 								<span>구입 수량</span>
 								<button type="button" class="plus">+</button>
@@ -222,7 +222,14 @@ section.replyList div.replyContent {
 							  });
 							 </script>
 							</p>
-
+							
+							
+							</c:if>
+							<c:if test="${view.gdsStock==0}">
+							<p>
+							재고가 없습니다.
+							</p>
+							</c:if>
 						</div>
 
 						<div class="gdsDes">${view.gdsDes}</div>

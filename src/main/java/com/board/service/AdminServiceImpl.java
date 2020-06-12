@@ -10,6 +10,8 @@ import com.board.dao.AdminDAO;
 import com.board.domain.CategoryVO;
 import com.board.domain.GoodsJoinCate;
 import com.board.domain.GoodsVO;
+import com.board.domain.OrderListVO;
+import com.board.domain.OrderVO;
 @Service
 public class AdminServiceImpl implements AdminService {
 
@@ -45,5 +47,21 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public void goodsDelete(int gdsNum) throws Exception{
 		dao.goodsDelete(gdsNum);
+	}
+	
+	public List<OrderVO> orderList() throws Exception{
+		return dao.orderList();
+	}
+	
+	public List<OrderListVO> orderView(OrderVO order)throws Exception{
+		return dao.orderView(order);
+	}
+	
+	public void deliveryChange(OrderVO order) throws Exception{
+		dao.deliveryChange(order);
+	}
+	
+	public void changeStock(GoodsVO vo) throws Exception{
+		dao.changeStock(vo);
 	}
 }

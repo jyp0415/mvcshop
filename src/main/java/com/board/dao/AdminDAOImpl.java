@@ -10,6 +10,8 @@ import org.springframework.stereotype.Repository;
 import com.board.domain.CategoryVO;
 import com.board.domain.GoodsJoinCate;
 import com.board.domain.GoodsVO;
+import com.board.domain.OrderListVO;
+import com.board.domain.OrderVO;
 @Repository
 public class AdminDAOImpl implements AdminDAO {
 	@Inject
@@ -46,5 +48,21 @@ public class AdminDAOImpl implements AdminDAO {
 	@Override
 	public void goodsDelete(int gdsNum) throws Exception{
 		sql.delete(namespace+".goodsDelete",gdsNum);
+	}
+	
+	
+	public List<OrderVO> orderList() throws Exception{
+		return sql.selectList(namespace+".orderList");
+	}
+	
+	public List<OrderListVO> orderView(OrderVO order)throws Exception{
+		return sql.selectList(namespace+".orderView",order);
+	}
+	
+	public void deliveryChange(OrderVO order) throws Exception{
+		sql.delete(namespace+".deliveryChange",order);
+	}
+	public void changeStock(GoodsVO vo) throws Exception{
+		sql.update(namespace+".changeStock",vo);
 	}
 }

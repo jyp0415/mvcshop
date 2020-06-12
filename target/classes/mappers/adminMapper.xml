@@ -85,5 +85,43 @@
 	<delete id="goodsDelete">
 		delete from tbl_goods where gdsNum=#{gdsNum}
 	</delete>
+	
+	<select id="orderList" resultType="com.board.domain.OrderVO">
+	select orderId,userId,orderRec,userAddr1,userAddr2,userAddr3,
+	orderPhon,amount,orderDate,delivery
+	from tbl_order;
+	</select>
+	
+	<select id="orderView" resultType="com.board.domain.OrderListVO">
+	SELECT o.orderId,o.userId,o.orderRec,o.userAddr1,o.userAddr2,o.userAddr3,
+	o.orderPhon,o.amount,o.orderDate,o.delivery,d.orderDetailNum,d.gdsNum,d.cartStock,
+	g.gdsName, g.gdsThumbImg,g.gdsPrice
+	from tbl_order o
+   INNER JOIN order_detail d
+    ON o.orderId = d.orderId
+    INNER JOIN tbl_goods g
+    ON d.gdsNum = g.gdsNum 
+    WHERE o.orderId=#{orderId}
+	</select>
+	<!-- 배송 상태 변경  -->
+	<update id="deliveryChange">
+	 UPDATE tbl_order
+    SET delivery =#{delivery}
+    WHERE orderId = #{orderId}
+	</update>
+	
+	<!-- 상품 수량 조절  -->
+	<update id="changeStock">
+	update tbl_goods
+	set gdsStock = gdsStock - #{gdsStock}
+	where gdsNum = #{gdsNum}
+	</update>
+	<!-- 수량 조절하기 위해  gdsNum 구하기 위한 정보 -->
+	<select id="changeStockInfo" resultType="com.board.domain.OrderDetailVO">
+	SELECT orderId,gdsNum,cartStock
+   from order_detail
+    WHERE orderId=#{orderId}
+	</select>
+	
 
 </mapper>

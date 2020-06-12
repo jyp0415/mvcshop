@@ -12,6 +12,7 @@ import com.board.domain.CartListVO;
 import com.board.domain.CartVO;
 import com.board.domain.GoodsJoinCate;
 import com.board.domain.OrderDetailVO;
+import com.board.domain.OrderListVO;
 import com.board.domain.OrderVO;
 import com.board.domain.ReplyListVO;
 import com.board.domain.ReplyVO;
@@ -98,5 +99,9 @@ public class ShopDAOImpl implements ShopDAO {
 	
 	public List<OrderVO> orderList(OrderVO order)throws Exception{
 		return sql.selectList(namespace+".orderList",order);
+	}
+	
+	public List<OrderListVO> orderView(OrderVO order) throws Exception{
+		return sql.selectList(namespace+".orderView",order);
 	}
 }

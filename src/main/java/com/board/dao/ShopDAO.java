@@ -6,6 +6,7 @@ import com.board.domain.CartListVO;
 import com.board.domain.CartVO;
 import com.board.domain.GoodsJoinCate;
 import com.board.domain.OrderDetailVO;
+import com.board.domain.OrderListVO;
 import com.board.domain.OrderVO;
 import com.board.domain.ReplyListVO;
 import com.board.domain.ReplyVO;
@@ -39,4 +40,6 @@ public interface ShopDAO {
 	public void deleteAllCart(String userId) throws Exception;
 	
 	public List<OrderVO> orderList(OrderVO order)throws Exception;
+	
+	public List<OrderListVO> orderView(OrderVO order) throws Exception;
 }

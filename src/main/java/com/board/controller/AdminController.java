@@ -25,6 +25,8 @@ import org.springframework.web.multipart.MultipartFile;
 import com.board.domain.CategoryVO;
 import com.board.domain.GoodsJoinCate;
 import com.board.domain.GoodsVO;
+import com.board.domain.OrderListVO;
+import com.board.domain.OrderVO;
 import com.board.service.AdminService;
 import com.board.utils.UploadFileUtils;
 
@@ -225,5 +227,50 @@ public class AdminController {
 
 		return;
 	}
+	
+	
+	
+	
+	// 주문 목록
+	@RequestMapping(value = "/shop/orderList", method = RequestMethod.GET)
+	public void getOrderList(Model model) throws Exception {
+	 logger.info("get order list");
+	   
+	 List<OrderVO> orderList = adminService.orderList();
+	 
+	 model.addAttribute("orderList", orderList);
+	}
 
+	// 주문 상세 목록
+	@RequestMapping(value = "/shop/orderView", method = RequestMethod.GET)
+	public void getOrderList(@RequestParam("n") String orderId,
+	      OrderVO order, Model model) throws Exception {
+	
+	 
+	 order.setOrderId(orderId);  
+	 List<OrderListVO> orderView = adminService.orderView(order);
+	 
+	 model.addAttribute("orderView", orderView);
+	}
+	
+	// 주문 상세 목록 - 상태 변경
+	@RequestMapping(value = "/shop/orderView", method = RequestMethod.POST)
+	public String delivery(OrderVO order) throws Exception {
+	
+	   
+	 adminService.deliveryChange(order);
+	 List<OrderListVO> orderView = adminService.orderView(order); 
+
+	 GoodsVO goods = new GoodsVO();
+	   
+	 for(OrderListVO i : orderView) {
+	  goods.setGdsNum(i.getGdsNum());
+	  goods.setGdsStock(i.getCartStock());
+	  adminService.changeStock(goods);
+	 }
+
+	 return "redirect:/admin/shop/orderView?n=" + order.getOrderId();
+	}
+
+	
 }
