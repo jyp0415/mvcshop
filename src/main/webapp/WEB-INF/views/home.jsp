@@ -18,6 +18,13 @@
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<style type="text/css">
+.sidemenu{height:100%;width:200px;background-color:#fff;position:fixed!important;z-index:1;overflow:auto}
+.sidecontent{padding-top:64px!important;padding-bottom:64px!important}
+
+</style>	
+<script src="https://kit.fontawesome.com/a25af36b03.js" crossorigin="anonymous"></script>
+	<script src="https://unpkg.com/ionicons@5.0.0/dist/ionicons.js"></script> <!-- 아이콘  -->
 </head>
 <body>
 	<div id="root">
@@ -34,15 +41,15 @@
 		</nav>
 
 		<section id="container">
-			<div id="container_box">
+			<nav id="sidemenu" style="z-index:3;width:250px" id="mySidebar">
 
-				<section id="content">본문 영역</section>
 
-				<aside id="aside">
+
+				<div id="sidecontent">
 					<%@ include file="include/aside.jsp"%>
-				</aside>
-
-			</div>
+				</div>
+				<section id="content">본문 영역</section>
+			</nav>
 		</section>
 
 		<footer id="footer">
@@ -94,27 +101,14 @@ div#root {
 	margin: 0 auto;
 }
 
-header#header {
-	
-}
 
-nav#nav {
-	
-}
-
-section#container {
-	
-}
 
 section#content {
 	float: right;
 	width: 700px;
 }
 
-aside#aside {
-	float: left;
-	width: 180px;
-}
+
 
 section#container::after {
 	content: "";
@@ -154,64 +148,6 @@ nav#nav div#nav_box li {
 
 nav#nav div#nav_box li a {
 	color: #333;
-}
-
-section#container {
-	
-}
-
-aside#aside h3 {
-	font-size: 22px;
-	margin-bottom: 20px;
-	text-align: center;
-}
-
-aside#aside li {
-	font-size: 16px;
-	text-align: center;
-}
-
-aside#aside li a {
-	color: #000;
-	display: block;
-	padding: 10px 0;
-}
-
-aside#aside li a:hover {
-	text-decoration: none;
-	background: #eee;
-}
-
-aside#aside li {
-	position: relative;
-}
-
-aside#aside li:hover {
-	background: #eee;
-}
-
-aside#aside li>ul.low {
-	display: none;
-	position: absolute;
-	top: 0;
-	left: 180px;
-}
-
-aside#aside li:hover>ul.low {
-	display: block;
-}
-
-aside#aside li:hover>ul.low li a {
-	background: #eee;
-	border: 1px solid #eee;
-}
-
-aside#aside li:hover>ul.low li a:hover {
-	background: #fff;
-}
-
-aside#aside li>ul.low li {
-	width: 180px;
 }
 
 footer#footer {
