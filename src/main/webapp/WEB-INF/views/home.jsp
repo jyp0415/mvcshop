@@ -20,53 +20,110 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <style type="text/css">
 .sidemenu{height:100%;width:200px;background-color:#fff;position:fixed!important;z-index:1;overflow:auto}
-.sidecontent{padding-top:64px!important;padding-bottom:64px!important}
+.sidecontent{padding-top:64px!important;padding-bottom:64px!important; text-align: center;}
+.good_div{padding:0.01em 16px}
 
+ .goods_col{padding:0 8px  ;float:left ; width:24.999% }
+ .header{ padding:0.01em 16px}
+ .header-left{font-size:28px !important}
 </style>	
 <script src="https://kit.fontawesome.com/a25af36b03.js" crossorigin="anonymous"></script>
 	<script src="https://unpkg.com/ionicons@5.0.0/dist/ionicons.js"></script> <!-- 아이콘  -->
 </head>
-<body>
-	<div id="root">
-		<header id="header">
-			<div id="header_box">
-				<%@ include file="include/header.jsp"%>
-			</div>
-		</header>
+<body class="content" style="max-width:1200px">
+	
 
-		<nav id="nav">
-			<div id="nav_box">
-				<%@ include file="include/nav2.jsp"%>
-			</div>
-		</nav>
+			<nav class="sidemenu" style="z-index:3;width:250px">
 
-		<section id="container">
-			<nav id="sidemenu" style="z-index:3;width:250px" id="mySidebar">
+				 <div>
+					side메뉴 상단 
+ 				 </div>
 
-
-
-				<div id="sidecontent">
+				<div class="sidecontent">
+					<%@ include file="include/nav2.jsp"%>
 					<%@ include file="include/aside.jsp"%>
 				</div>
-				<section id="content">본문 영역</section>
+				
 			</nav>
-		</section>
+			
+			<div  style="margin-left:250px">
+			<header class="header">
+    		<p class="header-left">SPRING SHOP</p>
+    		
+  			</header>
+			<div > <!-- 헤더 이미지  -->
+    			<img src="/resources/images/abc.jpg" alt="munizzang" style="width:100%">
 
-		<footer id="footer">
-			<div id="footer_box">
-				<%@ include file="include/footer.jsp"%>
-			</div>
-		</footer>
+ 			 </div>
+			<div class="" id="">
+    			<p>올 여름 50% 할인</p>
+  			</div>
+  			
+  			<div class="">
+    <div class="goods_col">
+      <div class="good_div">
+        <img src="/resources/images/abc.jpg" style="width:100%">
+        <p>상품1<br><b>100원</b></p>
+      </div>
 
-	</div>
+
+      <div class="good_div">
+        <img src="/resources/images/abc.jpg" style="width:100%">
+        <p>상품2<br><b>100원</b></p>
+      </div>
+    </div>
+
+    <div class="goods_col">
+      <div class="good_div">
+        <img src="/resources/images/abc.jpg" style="width:100%">
+        <p>상품3<br><b>100원</b></p>
+
+      </div>
+      <div class="good_div">
+        <img src="/resources/images/abc.jpg" style="width:100%">
+        <p>상품4<br><b>100원</b></p>
+      </div>
+    </div>
+
+    <div class="goods_col">
+      <div class="good_div">
+        <img src="/resources/images/abc.jpg" style="width:100%">
+        <p>상품5<br><b>100원</b></p>
+      </div>
+      <div class="good_div">
+        <img src="/resources/images/abc.jpg" style="width:100%">
+        <p>상품6<br><b>100원</b></p>
+      </div>
+    </div>
+
+    <div class="goods_col">
+      <div class="good_div">
+        <img src="/resources/images/abc.jpg" style="width:100%">
+        <p>상품7<br><b>100원</b></p>
+      </div>
+      <div class="good_div">
+        <img src="/resources/images/abc.jpg" style="width:100%">
+        <p>상품8<br><b>100원</b></p>
+      </div>
+    </div>
+  </div>
+  			
+  			
+  			
+			</div> <!--  마지막  상품 영역  -->
+			
+			<!-- 밑에는 footer 적자  -->
+		
 
 
 
-	<!--  <p>
-		<a href="/board/list">게시물 목록</a>
+		
+		
+
 	
-	<a href="/board/write">게시물 작성</a>
-	</p>-->
+
+
+
 </body>
 <style>
 body {
@@ -95,68 +152,5 @@ ul, lo, li {
 	list-style: none;
 }
 
-/* ---------- */
-div#root {
-	width: 900px;
-	margin: 0 auto;
-}
-
-
-
-section#content {
-	float: right;
-	width: 700px;
-}
-
-
-
-section#container::after {
-	content: "";
-	display: block;
-	clear: both;
-}
-
-footer#footer {
-	background: #eee;
-	padding: 20px;
-}
-
-/* ---------- */
-header#header div#header_box {
-	text-align: center;
-	padding: 30px 0;
-}
-
-header#header div#header_box h1 {
-	font-size: 50px;
-}
-
-header#header div#header_box h1 a {
-	color: #000;
-}
-
-nav#nav div#nav_box {
-	font-size: 14px;
-	padding: 10px;
-	text-align: right;
-}
-
-nav#nav div#nav_box li {
-	display: inline-block;
-	margin: 0 10px;
-}
-
-nav#nav div#nav_box li a {
-	color: #333;
-}
-
-footer#footer {
-	margin-top: 100px;
-	border-radius: 50px 50px 0 0;
-}
-
-footer#footer div#footer_box {
-	padding: 0 20px;
-}
 </style>
 </html>
