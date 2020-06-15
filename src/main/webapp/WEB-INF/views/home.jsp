@@ -26,6 +26,32 @@
  .goods_col{padding:0 8px  ;float:left ; width:24.999% }
  .header{ padding:0.01em 16px}
  .header-left{font-size:28px !important}
+ body {
+	margin: 0;
+	padding: 0;
+	font-family: '맑은 고딕', verdana;
+}
+
+a {
+	color: #05f;
+	text-decoration: none;
+}
+ a.title:link { color: red; text-decoration: none;}
+ a.title:visited { color: black; text-decoration: none;}
+ a.title:hover { color: green; text-decoration: none;}
+
+
+
+h1, h2, h3, h4, h5, h6 {
+	margin: 0;
+	padding: 0;
+}
+
+ul, lo, li {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
 </style>	
 <script src="https://kit.fontawesome.com/a25af36b03.js" crossorigin="anonymous"></script>
 	<script src="https://unpkg.com/ionicons@5.0.0/dist/ionicons.js"></script> <!-- 아이콘  -->
@@ -33,7 +59,7 @@
 <body class="content" style="max-width:1200px">
 	
 
-			<nav class="sidemenu" style="z-index:3;width:250px">
+			<nav class="sidemenu" style="z-index:3;width:230px">
 
 				 <div>
 					side메뉴 상단 
@@ -46,9 +72,9 @@
 				
 			</nav>
 			
-			<div  style="margin-left:250px">
+			<div  style="margin-left:230px">
 			<header class="header">
-    		<p class="header-left">SPRING SHOP</p>
+    		<p class="header-left"><a  class="title" href="/">SPRING SHOP</a></p>
     		
   			</header>
 			<div > <!-- 헤더 이미지  -->
@@ -125,32 +151,5 @@
 
 
 </body>
-<style>
-body {
-	margin: 0;
-	padding: 0;
-	font-family: '맑은 고딕', verdana;
-}
 
-a {
-	color: #05f;
-	text-decoration: none;
-}
-
-a:hover {
-	text-decoration: underline;
-}
-
-h1, h2, h3, h4, h5, h6 {
-	margin: 0;
-	padding: 0;
-}
-
-ul, lo, li {
-	margin: 0;
-	padding: 0;
-	list-style: none;
-}
-
-</style>
 </html>

@@ -3,14 +3,61 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <html>
-<link rel="stylesheet" href="/resources/css/member/view.css" />
+<style>
+.sidemenu{height:100%;width:200px;background-color:#fff;position:fixed!important;z-index:1;overflow:auto}
+.sidecontent{padding-top:64px!important;padding-bottom:64px!important; text-align: center;}
+.good_div{padding:0.01em 16px}
+.img_size{ width: auto; height: auto;
+    max-width: 100%;
+    max-height: 100%; }
+    
+.goods_left{padding:0 8px  ;float:left ; width:50% }
+.goods_info{padding:0 8px  ;float:right ; width:40% }
+
+ .goods_col{padding:0 8px  ;float:left ; width:24.999% }
+ .header{ padding:0.01em 16px}
+ .header-left{font-size:28px !important}
+ body {
+	margin: 0;
+	padding: 0;
+	font-family: '맑은 고딕', verdana;
+}
+
+a {
+	color: #05f;
+	text-decoration: none;
+}
+ a.title:link { color: red; text-decoration: none;}
+ a.title:visited { color: black; text-decoration: none;}
+ a.title:hover { color: green; text-decoration: none;}
+
+
+
+h1, h2, h3, h4, h5, h6 {
+	margin: 0;
+	padding: 0;
+}
+
+ul, lo, li {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+.modify,.delete{
+background-color: #8ebebc;
+color: #fff;
+text-decoration: none;
+border-radius:0.35em;
+border:0;
+outline:0;}
+</style>
 <link rel="stylesheet" href="/resources/css/member/viewModal.css" />
 <link rel="stylesheet" href="/resources/css/member/viewReply.css" />
 <head>
 <title>Home</title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
+<script src="https://kit.fontawesome.com/a25af36b03.js" crossorigin="anonymous"></script>
 <script> 
 							function replyList(){
 							 var gdsNum = ${view.gdsNum};
@@ -28,14 +75,14 @@
 							     + "<div class='userInfo'>"
 							     + "<span class='userName'>" + this.userName + "</span>"
 							     + "<span class='date'>" + repDate + "</span>"
+							     + "<span> <button type='button' class='modify' data-repNum='" + this.repNum + "'>수정</button> </span>"
+							     + "<span> <button type='button' class='delete' data-repNum='" + this.repNum + "'>삭제</button> </span>"
 							     + "</div>"
 							     + "<div class='replyContent'>" + this.repCon + "</div>"
 							     
 							     + "<c:if test='${member != null}'>"
 							     
 							     + "<div class='replyFooter'>"
-							     + "<button type='button' class='modify' data-repNum='" + this.repNum + "'>M</button>"
-							     + "<button type='button' class='delete' data-repNum='" + this.repNum + "'>D</button>"
 							     + "</div>"
 							    
 							     + "</c:if>"
@@ -48,52 +95,48 @@
 							}
 							</script>
 </head>
-<body>
-	<div id="root">
-		<header id="header">
-			<div id="header_box">
-				<%@ include file="../include/header.jsp"%>
-			</div>
-		</header>
+<body class="content" style="max-width:1200px">
+	
 
-		<nav id="nav">
-			<div id="nav_box">
-				<%@ include file="../include/nav2.jsp"%>
-			</div>
-		</nav>
+			<nav class="sidemenu" style="z-index:3;width:230px">
 
-		<section id="container">
-			<div id="container_box">
+				 <div>
+					side메뉴 상단 
+ 				 </div>
 
-				<section id="content">
-					<form role="form" method="post">
-						<input type="hidden" name="gdsNum" value="${view.gdsNum}" />
-					</form>
+				<div class="sidecontent">
+					<%@ include file="../include/nav2.jsp"%>
+					<%@ include file="../include/aside.jsp"%>
+				</div>
+				
+			</nav> <!-- nav 메뉴 끝  -->
+			
+			<div  style="margin-left:230px">
+			<header class="header">
+    		<p class="header-left"><a  class="title" href="/">SPRING SHOP</a></p>
+  			</header>
+  			
+  				<div class="goods_left">       	
+  					<img class="img_size" src="${view.gdsImg}">
+  				</div>
+  				<div class="goods_info">       	
+  					<p>
+								<span>상품명 : </span>${view.gdsName}</p>
+					<p>
+								<span>종류 : </span>${view.cateName}</p>
 
-					<div class="goods">
-						<div class="goodsImg">
-							<img src="${view.gdsImg}">
-						</div>
-
-						<div class="goodsInfo">
-							<p class="gdsName">
-								<span>상품명</span>${view.gdsName}</p>
-
-							<p class="cateName">
-								<span>카테고리</span>${view.cateName}</p>
-
-							<p class="gdsPrice">
-								<span>가격 </span>
+					<p >
+								<span>가격 : </span>
 								<fmt:formatNumber pattern="###,###,###" value="${view.gdsPrice}" />
 								원
-							</p>
+					</p>
 
-							<p class="gdsStock">
-								<span>재고 </span>
+					<p>
+								<span>수량 : </span>
 								<fmt:formatNumber pattern="###,###,###" value="${view.gdsStock}" />
 								EA
-							</p>
-							<c:if test="${view.gdsStock!=0 }">
+					</p>
+					<c:if test="${view.gdsStock!=0 }">
 							<p class="cartStock">
 								<span>구입 수량</span>
 								<button type="button" class="plus">+</button>
@@ -103,11 +146,10 @@
 								<!-- <input type="hidden" value="" class="" /> -->
 															
 								<script src="/resources/js/member/viewStockBtn.js" type="text/javascript"></script>
-
 							</p>
-
 							<p class="addToCart">
-								<button type="button" class="addCart_btn">카트에 담기</button>
+									<i class="fas fa-cart-plus addCart_btn" style="font-size: 25px;"></i>
+							
 								<script>
 							  $(".addCart_btn").click(function(){
 							   var gdsNum = $("#gdsNum").val();
@@ -146,12 +188,14 @@
 							재고가 없습니다.
 							</p>
 							</c:if>
-						</div>
-
-						<div class="gdsDes">${view.gdsDes}</div>
-					</div>
-
-					<div id="reply">
+													
+  				</div>
+  			
+  			<div class="goods_left">${view.gdsDes}</div>
+  			<!-- 상품 설명  -->
+  			
+  			
+  			<div class="goods_left">
 
 						<c:if test="${member == null }">
 							<p>
@@ -248,91 +292,18 @@
 							 
 						</section>
 					</div>
-				</section>
+  			
+  			
+  			</div> <!-- 최 하단 div  -->
+  			
+  			
+  			
+  			
+ 
 
-				<aside id="aside">
-					<%@ include file="../include/aside.jsp"%>
-				</aside>
-
-			</div>
-		</section>
-
-		<footer id="footer">
-			<div id="footer_box">
-				<%@ include file="../include/footer.jsp"%>
-			</div>
-		</footer>
-
-	</div>
-
-
-
-	<!--  <p>
-		<a href="/board/list">게시물 목록</a>
+			
+			<!-- 밑에는 footer 적자  -->
 	
-	<a href="/board/write">게시물 작성</a>
-	</p>-->
-	<div class="replyModal">
-
-		<div class="modalContent">
-
-			<div>
-				<textarea class="modal_repCon" name="modal_repCon"></textarea>
-			</div>
-
-			<div>
-				<button type="button" class="modal_modify_btn">수정</button>
-				<button type="button" class="modal_cancel">취소</button>
-			</div>
-
-		</div>
-
-		<div class="modalBackground"></div>
-
-	</div>
-	<script>
-	//수정 모달의 수정 버튼 클릭시 	
-	//모달은 원래 숨겨져 있는 정적인 html 이다 그래서 click 메소드 사용 가능 
-	$(".modal_modify_btn").click(function(){
-		 var modifyConfirm = confirm("정말로 수정하시겠습니까?");
-		 
-		 if(modifyConfirm) {
-		  var data = {
-		     repNum : $(this).attr("data-repNum"),
-		     repCon : $(".modal_repCon").val()
-		    };  // ReplyVO 형태로 데이터 생성
-		  
-		  $.ajax({
-		   url : "/shop/view/modifyReply",
-		   type : "post",
-		   data : data,
-		   success : function(result){
-		    
-		    if(result == 1) {
-		     replyList();
-		     $(".replyModal").fadeOut(200);
-		    } else {
-		     alert("작성자 본인만 할 수 있습니다.");       
-		    }
-		   },
-		   error : function(){
-		    alert("로그인하셔야합니다.")
-		   }
-		  });
-		 }
-		 
-		});
-	
-	
-	
-	
-	
-	
-	
-	//모달의 취소버튼 클릭시 
-$(".modal_cancel").click(function(){
-	 $(".replyModal").fadeOut(200);
-	});</script>
 </body>
 
 
