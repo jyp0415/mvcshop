@@ -8,111 +8,113 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-<link rel="stylesheet" href="/resources/css/member/cartList.css" />
+<!--<link rel="stylesheet" href="/resources/css/member/cartList.css" />-->
 <!-- <script src="/resources/js/user/shop/stockBtn.js"></script> -->
+<style>
+.sidemenu{height:100%;width:200px;background-color:#fff;position:fixed!important;z-index:1;overflow:auto}
+.sidecontent{padding-top:64px!important;padding-bottom:64px!important; text-align: center;}
+.good_div{padding:0.01em 16px}
+.img_size{ width: auto; height: auto;
+    max-width: 100%;
+    max-height: 100%; }
+    
+.goods_left{padding:0 8px  ;float:left ; width:50% }
+.goods_info{padding:0 8px  ;float:right ; width:40% }
+
+ .goods_col{padding:0 8px  ;float:left ; width:24.999% }
+ .header{ padding:0.01em 16px}
+ .header-left{font-size:28px !important}
+ body {
+	margin: 0;
+	padding: 0;
+	font-family: '맑은 고딕', verdana;
+}
+
+a {
+	color: #05f;
+	text-decoration: none;
+}
+ a.title:link { color: red; text-decoration: none;}
+ a.title:visited { color: black; text-decoration: none;}
+ a.title:hover { color: green; text-decoration: none;}
+
+
+
+h1, h2, h3, h4, h5, h6 {
+	margin: 0;
+	padding: 0;
+}
+
+ul, lo, li {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+.modify,.delete{
+background-color: #8ebebc;
+color: #fff;
+text-decoration: none;
+border-radius:0.35em;
+border:0;
+outline:0;}
+
+.orderInfo{
+display: none;
+float:left;
+}
+.listResult{
+float:left;
+padding-left: 15%;
+    padding-top: 5%;
+}
+.listResult::after {
+	content: "";
+	display: block;
+	
+	clear: both;
+}
+</style>
 </head>
-<body>
-	<div id="root">
-		<header id="header">
-			<div id="header_box">
-				<%@ include file="../include/header.jsp"%>
-			</div>
-		</header>
+<body class="content" style="max-width:1200px">
+	
 
-		<nav id="nav">
-			<div id="nav_box">
-				<%@ include file="../include/nav2.jsp"%>
-			</div>
-		</nav>
+			<nav class="sidemenu" style="z-index:3;width:230px">
 
-		<section id="container">
-			<div id="container_box">
-				<section id="content">
+				 <div>
+					side메뉴 상단 
+ 				 </div>
+
+				<div class="sidecontent">
+					<%@ include file="../include/nav2.jsp"%>
+					<%@ include file="../include/aside.jsp"%>
+				</div>
+				
+			</nav> <!-- nav 메뉴 끝  -->
+			
+			<div  style="margin-left:230px">
+			<header class="header">
+    		<p class="header-left"><a  class="title" href="/">SPRING SHOP</a></p>
+  			</header>
+
+
+  			</div> <!-- header div   -->
+  			
+  			<div class="cartList" style="margin-left:230px">
+  				<section>
 
 					<ul>
-						<li>
-							<div class="allCheck">
-								<input type="checkbox" name="allCheck" id="allCheck" /><label
-									for="allCheck">모두 선택</label>
-								<script>
-									$("#allCheck").click(
-											function() {
-												var chk = $("#allCheck").prop(
-														"checked");
-												if (chk) {
-													$(".chBox").prop("checked",
-															true);
-												} else {
-													$(".chBox").prop("checked",
-															false);
-												}
-											});
-								</script>
-							</div>
-
-							<div class="delBtn">
-								<button type="button" class="selectDelete_btn">선택 삭제</button>
-								<script>
-									$(".selectDelete_btn")
-											.click(
-													function() {
-														var confirm_val = confirm("정말 삭제하시겠습니까?");
-
-														if (confirm_val) {
-															var checkArr = new Array();
-
-															$(
-																	"input[class='chBox']:checked")
-																	.each(
-																			function() {
-																				checkArr
-																						.push($(
-																								this)
-																								.attr(
-																										"data-cartNum"));
-																			});
-
-															$
-																	.ajax({
-																		url : "/shop/deleteCart",
-																		type : "post",
-																		data : {
-																			chbox : checkArr
-																		},
-																		success : function() {
-																			if (result == 1) {
-																				location.href = "/shop/cartList";
-																			} else {
-																				alert("삭제 실패");
-																			}
-																		}
-																	});
-														}
-													});
-								</script>
-							</div>
-
-						</li>
+						
 						<c:set var="sum" value="0" />
+						
 						<c:forEach items="${cartList}" var="cartList">
 							<li>
-								<div class="checkBox">
-									<input type="checkbox" name="chBox" class="chBox"
-										data-cartNum="${cartList.cartNum}" />
-									<script>
-										$(".chBox").click(
-												function() {
-													$("#allCheck").prop(
-															"checked", false);
-												});
-									</script>
+
+								<div class="goods_left">
+								
+									<img class ="img_size" src="${cartList.gdsThumbImg}" />
 								</div>
 
-								<div class="thumb">
-									<img src="${cartList.gdsThumbImg}" />
-								</div>
-
-								<div class="gdsInfo">
+								<div class="goods_info">
 									<p>
 										<span>상품명</span>${cartList.gdsName}<br /> <span>개당 가격</span>
 										<fmt:formatNumber pattern="###,###,###"
@@ -124,8 +126,8 @@
 										원
 									</p>
 
-									<div class="delete">
-										<button type="button" class="delete_${cartList.cartNum}_btn"
+									<div>
+										<button type="button" class="delete delete_${cartList.cartNum}_btn"
 											data-cartNum="${cartList.cartNum}">삭제</button>
 										<script>
 											$(".delete_${cartList.cartNum}_btn")
@@ -170,12 +172,19 @@
 								value="${sum + (cartList.gdsPrice * cartList.cartStock)}" />
 						</c:forEach>
 					</ul>
-					<div class="listResult">
+					
+					
+
+				</section><!-- 카트 리스트 끝  -->
+  			
+  			
+  			<div class="listResult">
 						<div class="sum">
 							총 합계 :
 							<fmt:formatNumber pattern="###,###,###" value="${sum}" />
 							원
 						</div>
+						<br>
 						<div class="orderOpne">
 							<button type="button" class="orderOpne_bnt">주문 정보 입력</button>
 							<script>
@@ -188,7 +197,15 @@
 						</div>
 					</div>
 
-					<div class="orderInfo">
+					
+  			
+  			
+  			
+  			
+  			
+  			
+  			</div> <!-- cartList end  -->
+  			<div class="orderInfo">
 						<form role="form" method="post" autocomplete="off">
 
 							<input type="hidden" name="amount" value="${sum}" />
@@ -236,23 +253,13 @@
 
 						</form>
 					</div>  <!-- 주문 정보 입력 폼 끝  -->
+  			
+  			
+ 
 
-				</section>
-
-				<aside id="aside">
-					<%@ include file="../include/aside.jsp"%>
-				</aside>
-
-			</div>
-		</section>
-
-		<footer id="footer">
-			<div id="footer_box">
-				<%@ include file="../include/footer.jsp"%>
-			</div>
-		</footer>
-
-	</div>
+			
+			<!-- 밑에는 footer 적자  -->
+	
 </body>
 
 </html>
