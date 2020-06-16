@@ -6,109 +6,48 @@
 <head>
 <title>Home</title>
 <style>
-section#content ul li {
-	display: inline-block;
-	margin: 10px;
+
+section#content .orderList span { font-size:20px; font-weight:bold; display:inline-block; width:90px; margin-right:10px; }
+
+
+h1, h2, h3, h4, h5, h6 {
+	margin: 0;
+	padding: 0;
 }
 
-section#content div.goodsThumb img {
-	width: 200px;
-	height: 200px;
+
+.orderInfo {margin-bottom: 7px;
+box-shadow:0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12)
+;border-radius:4px;margin-left: 3px;
+}
+.ordergood{
+margin-left: 3px;
+float:left;
+box-shadow:0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
+border-radius:4px
 }
 
-section#content div.goodsName {
-	padding: 10px 0;
-	text-align: center;
+
+
+ul, lo, li {
+	margin: 0;
+	padding: 0;
+	list-style: none;
 }
+.sidemenu{height:100%;width:200px;background-color:#fff;position:fixed!important;z-index:1;overflow:auto}
+.sidecontent{padding-top:64px!important;padding-bottom:64px!important; text-align: center;}
+.good_div{padding:0.01em 16px}
+.img_size{ width: auto; height: auto;
+    max-width: 100%;
+    max-height: 100%; }
+    
+.goods_left{padding:0 8px  ;float:left ; width:50% }
+.goods_info{padding:0 8px  ;float:right ; width:40% }
 
-section#content div.goodsName a {
-	color: #000;
-}
-</style>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-</head>
-<body>
-	<div id="root">
-		<header id="header">
-			<div id="header_box">
-				<%@ include file="../include/header.jsp"%>
-			</div>
-		</header>
-
-		<nav id="nav">
-			<div id="nav_box">
-				<%@ include file="../include/nav2.jsp"%>
-			</div>
-		</nav>
-
-		<section id="container">
-			<div id="container_box">
-				<section id="content">
-
-					<div class="orderInfo">
-						<c:forEach items="${orderView}" var="orderView" varStatus="status">
-
-							<c:if test="${status.first}">
-								<p>
-									<span>수령인</span>${orderView.orderRec}</p>
-								<p>
-									<span>주소</span>(${orderView.userAddr1}) ${orderView.userAddr2}
-									${orderView.userAddr3}
-								</p>
-								<p>
-									<span>가격</span>
-									<fmt:formatNumber pattern="###,###,###"
-										value="${orderView.amount}" />
-									원
-								</p>
-								<p> <span>상태</span> ${orderView.delivery}</p>
-							</c:if>
-
-						</c:forEach>
-					</div>
-
-					<ul class="orderView">
-						<c:forEach items="${orderView}" var="orderView">
-							<li>
-								<div class="thumb">
-									<img src="${orderView.gdsThumbImg}" />
-								</div>
-								<div class="gdsInfo">
-									<p>
-										<span>상품명</span>${orderView.gdsName}<br /> <span>개당 가격</span>
-										<fmt:formatNumber pattern="###,###,###"
-											value="${orderView.gdsPrice}" />
-										원<br /> <span>구입 수량</span>${orderView.cartStock} 개<br /> <span>최종
-											가격</span>
-										<fmt:formatNumber pattern="###,###,###"
-											value="${orderView.gdsPrice * orderView.cartStock}" />
-										원                 
-									</p>
-								</div>
-							</li>
-						</c:forEach>
-					</ul>
-				</section>
-
-				<aside id="aside">
-					<%@ include file="../include/aside.jsp"%>
-				</aside>
-
-			</div>
-		</section>
-
-		<footer id="footer">
-			<div id="footer_box">
-				<%@ include file="../include/footer.jsp"%>
-			</div>
-		</footer>
-
-	</div>
-</body>
-<style>
-body {
+ .goods_col{padding:0 8px  ;float:left ; width:24.999% }
+ .header{ padding:0.01em 16px}
+ .header-left{font-size:28px !important}
+ body {
 	margin: 0;
 	padding: 0;
 	font-family: '맑은 고딕', verdana;
@@ -118,156 +57,96 @@ a {
 	color: #05f;
 	text-decoration: none;
 }
-
-a:hover {
-	text-decoration: underline;
-}
-
-h1, h2, h3, h4, h5, h6 {
-	margin: 0;
-	padding: 0;
-}
-
-ul, lo, li {
-	margin: 0;
-	padding: 0;
-	list-style: none;
-}
-
-/* ---------- */
-div#root {
-	width: 900px;
-	margin: 0 auto;
-}
-
-header#header {
-	
-}
-
-nav#nav {
-	
-}
-
-section#container {
-	
-}
-
-section#content {
-	float: right;
-	width: 700px;
-}
-
-aside#aside {
-	float: left;
-	width: 180px;
-}
-
-section#container::after {
-	content: "";
-	display: block;
-	clear: both;
-}
-
-footer#footer {
-	background: #eee;
-	padding: 20px;
-}
-
-/* ---------- */
-header#header div#header_box {
-	text-align: center;
-	padding: 30px 0;
-}
-
-header#header div#header_box h1 {
-	font-size: 50px;
-}
-
-header#header div#header_box h1 a {
-	color: #000;
-}
-
-nav#nav div#nav_box {
-	font-size: 14px;
-	padding: 10px;
-	text-align: right;
-}
-
-nav#nav div#nav_box li {
-	display: inline-block;
-	margin: 0 10px;
-}
-
-nav#nav div#nav_box li a {
-	color: #333;
-}
-
-section#container {
-	
-}
-
-aside#aside h3 {
-	font-size: 22px;
-	margin-bottom: 20px;
-	text-align: center;
-}
-
-aside#aside li {
-	font-size: 16px;
-	text-align: center;
-}
-
-aside#aside li a {
-	color: #000;
-	display: block;
-	padding: 10px 0;
-}
-
-aside#aside li a:hover {
-	text-decoration: none;
-	background: #eee;
-}
-
-aside#aside li {
-	position: relative;
-}
-
-aside#aside li:hover {
-	background: #eee;
-}
-
-aside#aside li>ul.low {
-	display: none;
-	position: absolute;
-	top: 0;
-	left: 180px;
-	 
-}
-
-aside#aside li:hover>ul.low {
-	display: block;
-}
-
-aside#aside li:hover>ul.low li a {
-	background: #eee;
-	border: 1px solid #eee;
-}
-
-aside#aside li:hover>ul.low li a:hover {
-	background: #fff;
-}
-
-aside#aside li>ul.low li {
-	width: 180px;
-}
-
-footer#footer {
-	margin-top: 100px;
-	border-radius: 50px 50px 0 0;
-}
-
-footer#footer div#footer_box {
-	padding: 0 20px;
-}
+ a.title:link { color: red; text-decoration: none;}
+ a.title:visited { color: black; text-decoration: none;}
+ a.title:hover { color: green; text-decoration: none;}
 </style>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body class="content" style="max-width:1200px">
+	
+
+			<nav class="sidemenu" style="z-index:3;width:230px">
+
+				 <div>
+					side메뉴 상단 
+ 				 </div>
+
+				<div class="sidecontent">
+					<%@ include file="../include/nav2.jsp"%>
+					<%@ include file="../include/aside.jsp"%>
+				</div>
+				
+			</nav> <!-- nav 메뉴 끝  -->
+			
+			<div  style="margin-left:230px">
+			<header class="header">
+    		<p class="header-left"><a  class="title" href="/">SPRING SHOP</a></p>
+  			</header>
+
+
+  			</div> <!-- header div   -->
+  			
+  			<div class="cartList" style="margin-left:230px">
+  				<section id="content">
+					 <div class="orderInfo">
+                        <c:forEach items="${orderView}" var="orderView" varStatus="status">
+
+                            <c:if test="${status.first}">
+                                <p>
+                                    <span>수령인 : </span>${orderView.orderRec}</p>
+                                <p>
+                                    <span>주소 : </span>(${orderView.userAddr1}) ${orderView.userAddr2}
+                                    ${orderView.userAddr3}
+                                </p>
+                                <p>
+                                    <span>가격 : </span>
+                                    <fmt:formatNumber pattern="###,###,###" value="${orderView.amount}" />
+                                    원
+                                </p>
+                                <p> <span>배송 상태 : </span> ${orderView.delivery}</p>
+                            </c:if>
+
+                        </c:forEach>
+                    </div>
+                    
+                    
+                    <!-- 주문 하나에대한 상품 목록  -->
+                    <div>
+                        <c:forEach items="${orderView}" var="orderView">
+                        <ul class="ordergood">
+                            <li>
+                                <div class="goods_left">
+                                    <img class ="img_size" src="${orderView.gdsThumbImg}" />
+                                </div>
+                                
+                                <div class="goods_info">
+                                    <p>
+                                        <span>상품명</span>${orderView.gdsName}<br /> <span>개당 가격</span>
+                                        <fmt:formatNumber pattern="###,###,###" value="${orderView.gdsPrice}" />
+                                        원<br /> <span>구입 수량</span>${orderView.cartStock} 개<br /> <span>최종
+                                            가격</span>
+                                        <fmt:formatNumber pattern="###,###,###"
+                                            value="${orderView.gdsPrice * orderView.cartStock}" />
+                                        원                 
+                                    </p>
+                                </div>
+                            </li>
+                            </ul>
+                        </c:forEach>
+                    </div>
+
+                </section>	
+		
+  			</div> <!-- cartList end  -->
+  			
+  			
+  			
+ 
+
+			
+			<!-- 밑에는 footer 적자  -->
+	
+</body>
 </html>

@@ -107,7 +107,8 @@ padding-left: 15%;
 						<c:set var="sum" value="0" />
 						
 						<c:forEach items="${cartList}" var="cartList">
-							<li>
+						<br>
+							<li style="height:105;">
 
 								<div class="goods_left">
 								
@@ -165,8 +166,9 @@ padding-left: 15%;
 										</script>
 									</div>
 								</div>
+								<br>
 							</li>
-
+							<br>
 
 							<c:set var="sum"
 								value="${sum + (cartList.gdsPrice * cartList.cartStock)}" />

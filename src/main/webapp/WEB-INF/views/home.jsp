@@ -3,7 +3,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <html>
-
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <head>
 <title>Home</title>
 <script
@@ -21,11 +21,26 @@
 <style type="text/css">
 .sidemenu{height:100%;width:200px;background-color:#fff;position:fixed!important;z-index:1;overflow:auto}
 .sidecontent{padding-top:64px!important;padding-bottom:64px!important; text-align: center;}
-.good_div{padding:0.01em 16px}
+.good_div{padding:0.01em 16px;
+    padding: 0.01em 3px;
+   
+    height: 100%;
+    display: inline-block;
+}
+ .goods_col{
+     padding: 0 8px;
+    float: left;
+    width: 100%;
+    height: 30%;
+ 
+ }
 
- .goods_col{padding:0 8px  ;float:left ; width:24.999% }
+ .img{
+ width: 100%;
+    height: 60%;}
+    
  .header{ padding:0.01em 16px}
- .header-left{font-size:28px !important}
+ .header-left{ !important ;font-size:2.5rem;}
  body {
 	margin: 0;
 	padding: 0;
@@ -36,7 +51,7 @@ a {
 	color: #05f;
 	text-decoration: none;
 }
- a.title:link { color: red; text-decoration: none;}
+ a.title:link {color: red; text-decoration: none;}
  a.title:visited { color: black; text-decoration: none;}
  a.title:hover { color: green; text-decoration: none;}
 
@@ -52,17 +67,47 @@ ul, lo, li {
 	padding: 0;
 	list-style: none;
 }
+/*반응형 디자인 */
+@media (max-width:992px){.sidemenu{display:none}  .main {margin-left:0px;} .menu_right{display:inline;} 
+.goods_col{width: 100%; } .good_div{width:49%}  .header{margin-left: 0px;}
+
+}               
+    
+@media (min-width:992px){.sidemenu{display:block;}  .main {margin-left:230px;} 
+.menu_right{display:none; } .header{margin-left: 230px;}
+.goods_col{width: 100%; } .good_div{width:24%}
+ }
+.main2{
+    width: 100%;
+    height: 100%;
+}    
+
+
+ 
+.main{height: 100%;    
+    }      
+.title_bar:after{
+content:"";display:table;clear:both
+} 
+.header{
+padding: 0.01em 16px;
+    height: 6%;
+    }   
+body.content{
+
+}    
 </style>	
+
 <script src="https://kit.fontawesome.com/a25af36b03.js" crossorigin="anonymous"></script>
 	<script src="https://unpkg.com/ionicons@5.0.0/dist/ionicons.js"></script> <!-- 아이콘  -->
 </head>
-<body class="content" style="max-width:1200px">
+<body class="content" style="max-width:1200px;">
 	
-
-			<nav class="sidemenu" style="z-index:3;width:230px">
+			
+			<nav class="sidemenu" style="z-index:3;width:230px" id="sidemenu">
 
 				 <div>
-					side메뉴 상단 
+					 
  				 </div>
 
 				<div class="sidecontent">
@@ -72,67 +117,92 @@ ul, lo, li {
 				
 			</nav>
 			
-			<div  style="margin-left:230px">
 			<header class="header">
-    		<p class="header-left"><a  class="title" href="/">SPRING SHOP</a></p>
-    		
-  			</header>
-			<div > <!-- 헤더 이미지  -->
+    		<p class="header-left" style="display: inline;"><a class="title" href="/">SPRING SHOP</a>
+    
+   </p><div class="menu_right" style="height: 90%;float: right;">
+          <i onclick="menu()" class="fas fa-bars" aria-hidden="true" style="
+          font-size:3.5rem;height: 100%;"></i>      
+  			<script>
+  				function menu() {
+  			  	var sidemenu = document.getElementById("sidemenu").style ;
+  			  	if(sidemenu.display == "block"){
+  			  		sidemenu.display = "none";
+  			  	}else{
+  			  	sidemenu.display = "block";
+  			  	}
+  				}
+  			
+  			</script>
+   </div>
+   
+   
+   </header>
+			
+			
+			
+			
+			<div  class="main">
+			 
+			<div style="margin: 12px;" > <!-- 헤더 이미지  -->
     			<img src="/resources/images/abc.jpg" alt="munizzang" style="width:100%">
-
  			 </div>
 			<div class="" id="">
     			<p>올 여름 50% 할인</p>
   			</div>
   			
-  			<div class="">
+  			<div class="main2">
     <div class="goods_col">
       <div class="good_div">
-        <img src="/resources/images/abc.jpg" style="width:100%">
+        <img src="/resources/images/abc.jpg" class="img" style="width:100%">
         <p>상품1<br><b>100원</b></p>
       </div>
 
 
       <div class="good_div">
-        <img src="/resources/images/abc.jpg" style="width:100%">
+        <img src="/resources/images/abc.jpg" class="img" style="width:100%">
         <p>상품2<br><b>100원</b></p>
       </div>
-    </div>
-
-    <div class="goods_col">
+      
       <div class="good_div">
-        <img src="/resources/images/abc.jpg" style="width:100%">
+        <img src="/resources/images/abc.jpg" class="img"  style="width:100%">
         <p>상품3<br><b>100원</b></p>
 
       </div>
+      
       <div class="good_div">
-        <img src="/resources/images/abc.jpg" style="width:100%">
+        <img src="/resources/images/abc.jpg" class="img"  style="width:100%">
         <p>상품4<br><b>100원</b></p>
+
       </div>
     </div>
 
     <div class="goods_col">
       <div class="good_div">
-        <img src="/resources/images/abc.jpg" style="width:100%">
-        <p>상품5<br><b>100원</b></p>
+        <img src="/resources/images/abc.jpg" class="img" style="width:100%">
+        <p>상품1<br><b>100원</b></p>
       </div>
-      <div class="good_div">
-        <img src="/resources/images/abc.jpg" style="width:100%">
-        <p>상품6<br><b>100원</b></p>
-      </div>
-    </div>
 
-    <div class="goods_col">
+
       <div class="good_div">
-        <img src="/resources/images/abc.jpg" style="width:100%">
-        <p>상품7<br><b>100원</b></p>
+        <img src="/resources/images/abc.jpg" class="img" style="width:100%">
+        <p>상품2<br><b>100원</b></p>
       </div>
+      
       <div class="good_div">
-        <img src="/resources/images/abc.jpg" style="width:100%">
-        <p>상품8<br><b>100원</b></p>
+        <img src="/resources/images/abc.jpg" class="img"  style="width:100%">
+        <p>상품3<br><b>100원</b></p>
+
+      </div>
+      
+      <div class="good_div">
+        <img src="/resources/images/abc.jpg" class="img"  style="width:100%">
+        <p>상품4<br><b>100원</b></p>
+
       </div>
     </div>
-  </div>
+    
+</div>
   			
   			
   			

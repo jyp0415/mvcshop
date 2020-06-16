@@ -4,7 +4,7 @@
 	pageEncoding="UTF-8"%>
 <html>
 <head>
-<title>admin page</title>
+<title>HELLO SHOP ADMIN</title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <!-- 합쳐지고 최소화된 최신 CSS -->
@@ -124,15 +124,10 @@ footer#footer ul li {
 
 
 
-			<div id="container_box">본문 영역</div>
+			<div id="container_box"></div>
 		</section>
 
-		<footer id="footer">
-			<div id="footer_box">
-				<%@ include file="include/footer.jsp"%>
-			</div>
-
-		</footer>
+		
 
 
 	</div>
