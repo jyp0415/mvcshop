@@ -70,12 +70,12 @@ ul, lo, li {
 /*반응형 디자인 */
 @media (max-width:992px){.sidemenu{display:none}  .main {margin-left:0px;} .menu_right{display:inline;} 
 .goods_col{width: 100%; } .good_div{width:49%}  .header{margin-left: 0px;}
-
+ .b2{display:block; width: 100%;height: 30%; float: left;}
 }               
     
 @media (min-width:992px){.sidemenu{display:block;}  .main {margin-left:230px;} 
 .menu_right{display:none; } .header{margin-left: 230px;}
-.goods_col{width: 100%; } .good_div{width:24%}
+.goods_col{width: 100%; } .good_div{width:24%} .b2{display:none;}
  }
 .main2{
     width: 100%;
@@ -95,7 +95,10 @@ padding: 0.01em 16px;
     }   
 body.content{
 
-}    
+} 
+.b2{
+
+}   
 </style>	
 
 <script src="https://kit.fontawesome.com/a25af36b03.js" crossorigin="anonymous"></script>
@@ -176,7 +179,8 @@ body.content{
 
       </div>
     </div>
-
+	<div class="b2">
+    </div>
     <div class="goods_col">
       <div class="good_div">
         <img src="/resources/images/abc.jpg" class="img" style="width:100%">
